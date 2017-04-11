@@ -36,8 +36,8 @@ def read_course_data(filename):
 
 if __name__ == '__main__':
 
-	# store studentenvakken.csv in database an read into data
-	database = read_student_data('studentenenvakken (1).csv')
+	# store studenten_rooster.csv in database an read into data
+	database = read_student_data('studenten_rooster.csv')
 
 	# student number is in the second column of database
 	student_nr =  database[:,2]
