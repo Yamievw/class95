@@ -9,7 +9,7 @@ import csv
 ###
 
 
-class student():
+class Student():
     def __init__(self, name, surname, number, courses):
         self.name = name
         self.surname = surname
@@ -40,7 +40,7 @@ with open('studenten_roostering.CSV', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter = ",")
     for row in reader:
         # create students. 
-        students.append(student(row[1], row[0], row[2], row[3:]))
+        students.append(Student(row[1], row[0], row[2], row[3:]))
 
 
         
