@@ -12,6 +12,9 @@ class Courses():
         self.registrants = registrants # a list containing students in an unknown format. 
         self.registrants = sorted(self.registrants) # is dit nodig of niet? hangt van format registrants af. 
         self.amount_registrants = len(self.registrants)
+        
+    def __str__():
+        return self.name
 
     def get_registrants(self):
         return self.registrants
@@ -25,6 +28,8 @@ class Courses():
         return self.components["labs"]
     def get_name(self):
         return self.name
+    def get_components(self):
+        return self.components
     
     def add_registrant(self, registrant):
         self.registrants.append(registrant)
@@ -64,7 +69,7 @@ with open('vakken.CSV', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter = ";")
     for row in reader:
         components = {}
-        components["lectures"] = row[1]
+        components["lectures"] = (row[1], None)
         components["tutorials"] = (row[2], row[3]) # misschien problemen met nvt
         components["labs"] = (row[4], row[5])
         

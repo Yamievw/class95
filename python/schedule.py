@@ -8,14 +8,17 @@ class Activity():
     # a two hour timeslot with a name, participants and a
     # specific room.
     
-    def __init__(self, name, capacity, room, participants):
+    def __init__(self, name, activity_type, capacity, room, participants):
         self.name = name
+        self.type = activity_type
         self.capacity = capacity
         self.room = room
         self.participants = participants
 
     def get_name(self):
         return self.name
+    def get_type(self):
+        return self.type
     def get_capacity(self):
         return self.capacity
     def get_room(self):
