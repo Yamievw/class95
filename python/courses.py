@@ -1,28 +1,26 @@
 import csv
 
 class Courses():
-    def __init__(self, name, number, hoorcolleges, werkcolleges, practica, registrants):
+    def __init__(self, name, components, registrants):
         self.name = name
-        self.number = number
-        self.hoorcolleges = hoorcolleges
-        self.werkcolleges = werkcolleges
-        self.practica = practica
-        self.registrants = []
-            
-        for registrant in registrants:
-            if registrant != '':
-                if registrant == 'Zweekhorst':
-                    self.registrants.append('Stein Zweekhorst')
-                elif course != ' Stein':
-                    self.registrants.append(registrant)
-            self.registrants = sorted(self.registrants)
-            self.amountregistrants = len(self.registrants)
+        self.components = components # a dictionary of yet unkown format. 
+        self.registrants = registrants # a list containing students in an unknown format. 
+           
+        self.registrants = sorted(self.registrants) # is dit nodig of niet? hangt van format registrants af. 
+        self.amount_registrants = len(self.registrants)
 
     def get_registrants(self):
         return self.registrants
-
-    def get_amountregistrants(self):
-        return self.amountregistrants
+    def get_amount_registrants(self):
+        return self.amount_registrants
+    def get_lectures(self):
+        return self.components["lectures"]
+    def get_tutorials(self):
+        return self.components["tutorials"]
+    def get_labs(self):
+        return self.components["labs"]
+    def get_name(self):
+        return self.name
     
 # get the registrants per course
 with open('studenten_roostering.CSV', 'rb') as csvfile:
