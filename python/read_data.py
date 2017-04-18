@@ -4,12 +4,12 @@
 
 import csv
 
+
 class Courses():
     def __init__(self, name, components, registrants):
         self.name = name
         self.components = components # a dictionary of yet unkown format. 
         self.registrants = registrants # a list containing students in an unknown format. 
-           
         self.registrants = sorted(self.registrants) # is dit nodig of niet? hangt van format registrants af. 
         self.amount_registrants = len(self.registrants)
 
@@ -56,8 +56,12 @@ class Student():
 students = {}
 courses = {}
 
+###
+### Fiks lowercase vaknamen enzo. 
+###
+
 with open('vakken.CSV', 'rb') as csvfile:
-    reader = csv.reader(csvfile, delimiter = ",")
+    reader = csv.reader(csvfile, delimiter = ";")
     for row in reader:
         components = {}
         components["lectures"] = row[1]
@@ -80,6 +84,6 @@ with open('studenten_roostering.CSV', 'rb') as csvfile:
             except KeyError:
                 continue
         
-        
+
 
         
