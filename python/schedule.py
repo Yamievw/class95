@@ -8,7 +8,7 @@ class Activity():
     # a two hour timeslot with a name, participants and a
     # specific room.
     
-    def __init__(self, name, activity_type, capacity, room=None, participants=None):
+    def __init__(self, name, activity_type, capacity, room=None, participants=[]):
         self.name = name
         self.type = activity_type
         self.capacity = capacity

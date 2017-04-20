@@ -4,8 +4,6 @@ import random
 
 courses_test = courses.values()
 
-
-
 activities = []
 
 test = Schedule()
@@ -23,8 +21,8 @@ for course in courses_test:
         
 
 for activity in activities:
-    i = random.randint(0, 4)
-    j = random.randint(0, 4)
+    i = random.randint(0, 4) 
+    j = random.randint(0, 3) # no evening timeslot.
     test.add_activity(i, j, activity)
     
 

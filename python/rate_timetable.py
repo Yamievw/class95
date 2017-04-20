@@ -35,8 +35,8 @@ def rate_timetable(timetable, checklist=course_checklist):
                     name = activity.get_name() + "_" + activity.get_type()
                     checklist[name] = checklist[name] - 1
                 except KeyError:
-                    print "Er gaat iets flink mis"
-                    return 0
+                    print "Something went horribly wrong"
+                    return None
     
     
     for value in checklist.values():
@@ -45,6 +45,16 @@ def rate_timetable(timetable, checklist=course_checklist):
             score = 0
             return score
 
+    score += check_day(timetable)
+    #score += check_conflict(timetable)
+    
+    return score
+
+
+def check_day(timetable):
+    """ Checks if a subject is scheduled more
+        than once a day. """
+    score = 0
     for day in range(5):
         daycheck = {}
         for timeslot in range(5):
@@ -52,22 +62,26 @@ def rate_timetable(timetable, checklist=course_checklist):
                 name = activity.name
                 try:
                     daycheck[name] = daycheck[name] + 1
-                    print activity.name, day, timeslot 
                 except KeyError:
                     daycheck[name] = 1
 
         for value in daycheck.values():
             if value > 1:
                 score -= (value - 1)*10 #points deducted
-                    
-        
-
-    
     return score
 
+def check_conflict(timetable):
+    """ Checks timetable conflicts """
+    conflicts = 0
+    for day in range(5):
+        for timeslot in range(5):
+            for activity in timetable[timeslot][day]:
+                x = 3 # placeholder 
+                ### check for doubles.  
+    return conflicts
 
-
-              
+                
+                
                 
                 
             
