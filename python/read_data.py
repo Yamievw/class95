@@ -69,9 +69,9 @@ with open('vakken.CSV', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter = ";")
     for row in reader:
         components = {}
-        components["lectures"] = (row[1], None)
-        components["tutorials"] = (row[2], row[3]) # misschien problemen met nvt
-        components["labs"] = (row[4], row[5])
+        components["lectures"] = (int(row[1]), None)
+        components["tutorials"] = (int(row[2]), (row[3])) # misschien problemen met nvt
+        components["labs"] = (int(row[4]), (row[5]))
         
         # create course object. 
         courses[row[0]] = Courses(row[0], components, [])
