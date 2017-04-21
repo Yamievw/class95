@@ -26,6 +26,9 @@ class Activity():
     def get_participants(self):
         return self.participants
 
+    def add_participants(self, participants):
+        self.participants.append(participants) # sanity check iemand twee keer.
+
 class Schedule():
     # a 5x5 matrix that represents the available timeslots
     # and can calculate its own fitness.
@@ -41,6 +44,16 @@ class Schedule():
 
     def get_timetable(self):
         return self.timetable
+    def update_activity(self, day, timeslot, name, replacement):
+        i = 0
+        for activity in self.timetable[timeslot][day]:          
+            if activity.name + "_" + activity.type == name:
+                self.timetable[timeslot][day][i] = replacement
+                return 1 # if successful
+            i += i
+        return 0 # if unsuccessful
+    def update_timetable(self, timetable):
+        self.timetable = timetable # sanity check hiero moet noggg!             
 
     def add_activity(self, day, timeslot, activity):
         self.timetable[timeslot][day].append(activity)

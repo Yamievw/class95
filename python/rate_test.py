@@ -30,6 +30,24 @@ print "Uw score is: ", rate_timetable(test)
 print test
 ### voorlopige conclusie: hij werkt! Hij kan checken of het een geldig rooster is. 
 
+
+def add_students(schedule):
+    timetable = schedule.timetable
+    for day in range(5):
+        for timeslot in range(5):
+            for activity in timetable[timeslot][day]:
+                if activity.type == "lectures":
+                    activity.add_participants(courses[activity.name].get_registrants())
+                # ook nog lectures & labs adden
+                
+                    
+                    
+                    
+                    
+                    
+                
+            
+    
     
     
     

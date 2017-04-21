@@ -46,7 +46,7 @@ def rate_timetable(timetable, checklist=course_checklist):
             return score
 
     score += check_day(timetable)
-    #score += check_conflict(timetable)
+    score += check_conflict(timetable)
     
     return score
 
@@ -75,9 +75,17 @@ def check_conflict(timetable):
     conflicts = 0
     for day in range(5):
         for timeslot in range(5):
+            check = None 
             for activity in timetable[timeslot][day]:
-                x = 3 # placeholder 
-                ### check for doubles.  
+                if check != None:
+                    for student in activity.participants:
+                        if student not in check:
+                            check.add(student)
+                        else:
+                            conflicts += 1
+                else:
+                    check = set(activity.participants)
+                 
     return conflicts
 
                 
