@@ -3,7 +3,7 @@
 
 from read_data import *
 
-def checklist(courses=courses):
+def make_checklist(courses=courses):
     # creates a dictionary that keeps track of necessary timeslots per
     # course. e.g. {"Compilerbouw" : 5}. Standard input is our previous
     # "courses" list, but simpler examples may be used for testing
@@ -18,15 +18,16 @@ def checklist(courses=courses):
 
     return course_checklist
     
-course_checklist = checklist()
 
 
 
-def rate_timetable(timetable, checklist=course_checklist):
+
+def rate_timetable(timetable):
     # scores the timetable. First checks if the schedule is
-    # valid, then adds/subtracts bonus/malus points. 
+    # valid, then adds/subtracts bonus/malus points.
+    checklist = make_checklist() #create course checklist
     score = 1000
-    timetable = timetable.get_timetable()
+    
     for day in range(5):
         for timeslot in range(5):
             for activity in timetable[timeslot][day]:

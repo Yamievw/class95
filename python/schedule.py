@@ -52,8 +52,9 @@ class Schedule():
                 return 1 # if successful
             i += i
         return 0 # if unsuccessful
-    def update_timetable(self, timetable):
-        self.timetable = timetable # sanity check hiero moet noggg!             
+    def update_timetable(self, new_timetable):
+        self.timetable = new_timetable # sanity check hiero moet noggg!
+        return self
 
     def add_activity(self, day, timeslot, activity):
         self.timetable[timeslot][day].append(activity)
