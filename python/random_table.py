@@ -25,5 +25,7 @@ def random_table():
         j = random.randint(0, 3)  # no evening timeslot.
         test.add_activity(i, j, activity)
 
+    
+    
     return test
 
