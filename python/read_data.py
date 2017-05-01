@@ -80,15 +80,12 @@ with open('vakken.CSV', 'rb') as csvfile:
 with open('studenten_roostering.CSV', 'rb') as csvfile:
     # open txt file. 
     reader = csv.reader(csvfile, delimiter = ",")
+    next(reader)
     for row in reader:
-        # create students. 
+        # create students.
         students[row[2]] = Student(row[1], row[0], row[2], row[3:])
         for course in row[3:]:
             try:
                 courses[course].add_registrant(row[2])
             except KeyError:
                 continue
-        
-
-
-        
