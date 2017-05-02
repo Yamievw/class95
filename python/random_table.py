@@ -1,4 +1,4 @@
-# creates a randomized timetable, without students.
+# creates a randomized timetable, with students.
 
 from read_data import *
 from schedule import *
@@ -25,7 +25,35 @@ def random_table():
         j = random.randint(0, 3)  # no evening timeslot.
         test.add_activity(i, j, activity)
 
-    
-    
+    test = add_students(test)
+
     return test
+
+def add_students(schedule):
+    timetable = schedule.timetable
+    for day in range(5):
+        for timeslot in range(5):
+            for activity in timetable[timeslot][day]:
+                if activity.type == "lectures":
+                    activity.add_participants(courses[activity.name].get_registrants())
+                else:
+                    activiteit = make_groups(activity)
+
+def make_groups(activity):
+    data = []
+    students = courses[activity.name].get_registrants()
+    for student in students:
+        data.append(student)
+
+    maxsize = int(activity.get_capacity())
+
+    n = math.ceil(float(len(data))/(maxsize))
+    n = int(n)
+
+    groups = [data[i::n] for i in range(n)]
+                 
+    for i, group in enumerate(groups):
+        name = activity.name + " (" + str(i + 1) + ")"
+        new_activity = Activity(name, activity.type, activity.capacity, participants=group)
+
 
