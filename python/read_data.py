@@ -3,12 +3,15 @@
 # by importing this module. 
 
 import csv
+import math # for ceil.
 
 
 class Courses():
     def __init__(self, name, components, registrants):
         self.name = name
-        self.components = components # a dictionary of yet unkown format. 
+        # a dictionary with keys "lectures", "tutorials" or "labs" and the
+        # required number per student and capacity. 
+        self.components = components 
         self.registrants = registrants # a list containing students in an unknown format. 
         self.registrants = sorted(self.registrants) # is dit nodig of niet? hangt van format registrants af. 
         self.amount_registrants = len(self.registrants)
@@ -33,6 +36,25 @@ class Courses():
     
     def add_registrant(self, registrant):
         self.registrants.append(registrant)
+
+    def update_components(self):
+        tutorials_per_student = self.components["tutorials"][0]
+        labs_per_student = self.components["labs"][0]
+        tutorials_capacity = self.components["tutorials"][1]
+        labs_capacity = self.components["labs"][1]
+
+        tutorial_result = tutorials_per_student*len(self.registrants)/float(tutorials_capacity)
+        labs_result = labs_per_student*len(self.registrants)/float(labs_capacity)
+
+        
+        # math.ceil to ensure enough activities
+        self.components["tutorials"] = (int(math.ceil(tutorial_result)), tutorials_capacity)
+        self.components["labs"] = (int(math.ceil(labs_result)), labs_capacity)
+        
+        
+        
+                        
+        
 
 
 class Student():
@@ -65,18 +87,30 @@ courses = {}
 ### Fiks lowercase vaknamen enzo. 
 ###
 
+# read in courses
 with open('vakken.CSV', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter = ";")
     for row in reader:
         components = {}
-        components["lectures"] = (int(row[1]), None)
-        components["tutorials"] = (int(row[2]), (row[3])) # misschien problemen met nvt
-        components["labs"] = (int(row[4]), (row[5]))
+
+        tutorials_capacity = row[3]
+        labs_capacity = row[5]
+
+        # 1000 means unlimited capacity.
+        if tutorials_capacity == "nvt":
+            tutorials_capacity = 1000
+        if labs_capacity == "nvt":
+            labs_capacity = 1000
+        
+        # tupe structure: (number per student, capacity)
+        components["lectures"] = (int(row[1]), 1000) # 1000 means unlimited capacity
+        components["tutorials"] = (int(row[2]), tutorials_capacity) 
+        components["labs"] = (int(row[4]), labs_capacity)
         
         # create course object. 
         courses[row[0]] = Courses(row[0], components, [])
           
-
+# read in students and add them to courses
 with open('studenten_roostering.CSV', 'rb') as csvfile:
     # open txt file. 
     reader = csv.reader(csvfile, delimiter = ",")
@@ -89,3 +123,10 @@ with open('studenten_roostering.CSV', 'rb') as csvfile:
                 courses[course].add_registrant(row[2])
             except KeyError:
                 continue
+
+# update the requirement for the number of tutorials and labs
+for key in courses:
+    courses[key].update_components()
+
+# to test the components update.
+#print courses["Collectieve Intelligentie"].get_components()
