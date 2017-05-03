@@ -21,7 +21,7 @@ for i in range(1000):
     scores.append(schedule.score())
     temperature.append(T)
     
-    schedule = SA_activities(schedule, "lin", T)
+    schedule = SA_activities(schedule, "exp", T)
     T = cool("exp", T0, i)
 
 plt.figure()
@@ -52,7 +52,7 @@ for i in range(1000):
     scores.append(schedule.score())
     temperature.append(T)
     
-    schedule = SA_students(schedule, "lin", T)
+    schedule = SA_students(schedule, "exp", T)
     T = cool("exp", T0, i)
 
 
