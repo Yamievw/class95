@@ -2,7 +2,7 @@
 
 from read_data import *
 from schedule import *
-
+import math
 import random
 
 def random_table():
@@ -37,9 +37,11 @@ def add_students(schedule):
                 if activity.type == "lectures":
                     activity.add_participants(courses[activity.name].get_registrants())
                 else:
-                    activiteit = make_groups(activity)
+                    make_groups(activity, timetable)
+    return schedule
 
-def make_groups(activity):
+
+def make_groups(activity, timetable):
     data = []
     students = courses[activity.name].get_registrants()
     for student in students:
@@ -51,9 +53,10 @@ def make_groups(activity):
     n = int(n)
 
     groups = [data[i::n] for i in range(n)]
-                 
+    all_activities = []
     for i, group in enumerate(groups):
         name = activity.name + " (" + str(i + 1) + ")"
         new_activity = Activity(name, activity.type, activity.capacity, participants=group)
+        all_activities.append(new_activity)
 
-
+    return all_activities
