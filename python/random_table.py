@@ -60,3 +60,10 @@ def make_groups(activity, timetable):
         all_activities.append(new_activity)
 
     return all_activities
+
+
+
+frits = random_table()
+frits = frits.timetable
+print frits[0][0][0].get_participants()[0]
+print frits[0][0][0].get_participants()[1]
