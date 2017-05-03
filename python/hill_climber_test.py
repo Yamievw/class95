@@ -9,7 +9,7 @@ scores = []
 
 schedule = random_table()
 
-for i in range(1000):
+for i in range(1500):
     iterations.append(i)
     scores.append(schedule.score())
     schedule = hill_climber_activities(schedule)
