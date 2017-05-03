@@ -87,7 +87,7 @@ def check_conflict(timetable):
                 else:
                     check = set(activity.participants)
                  
-    return conflicts
+    return -conflicts
 
                 
                 

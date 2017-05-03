@@ -99,8 +99,7 @@ def SA_students(schedule, cooling, T0, iterations=1):
 
     schedule_roadmap = roadmap(schedule, False)
     keys = schedule_roadmap.keys()
-    print schedule
-    print schedule_roadmap
+   
 
     for k in range(iterations):
         T = cool(cooling, T0, k)
@@ -122,14 +121,71 @@ def SA_students(schedule, cooling, T0, iterations=1):
         elif no_activities > 2:
             i = random.randint(0, no_activities - 1)
             j = random.randint(0, no_activities - 1)
-            # we need unique things numbers. 
+            # we need unique numbers. 
             while i == j:
                 j = random.randint(0, no_activities - 1)
 
-        activity1 = table[coordinates[i][1]][coordinates[i][0]]
-        activity2 = table[coordinates[j][1]][coordinates[j][0]]
-        print activity1, activity2
-        print "hoi"
+        
+        # coordinates (day, timeslot, activity index)
+        activity1 = table[coordinates[i][1]][coordinates[i][0]][coordinates[i][2]]
+        activity2 = table[coordinates[j][1]][coordinates[j][0]][coordinates[j][2]]
+
+        participants1 = activity1.participants
+        participants2 = activity2.participants
+
+        m = random.randint(0, len(participants1) - 1)
+        n = random.randint(0, len(participants2) - 1)
+
+        student1 = participants1[m]
+        student2 = participants2[n]
+
+        if student1 not in participants2:
+            participants1[m] = student2
+            participants2[n] = student1
+
+            activity1.update_participants(participants1)
+            activity2.update_participants(participants2)
+
+            table[coordinates[i][1]][coordinates[i][0]][coordinates[i][2]] = activity1 
+            table[coordinates[j][1]][coordinates[j][0]][coordinates[j][2]] = activity2
+
+            
+            
+
+            new_schedule = copy.deepcopy(schedule) # otherwise we get pointer problems
+            new_schedule = new_schedule.update_timetable(table)
+
+            new_score = new_schedule.score()
+
+            if new_score == 0:
+                print "we have encountered a terrible error"
+                return 1
+
+            
+
+            compare = random.uniform(0, 1)
+
+            if T > 0:
+                SA_value = math.exp(-(score - new_score)/T)
+            else:
+                SA_value = 1
+
+            
+            
+            if new_score > score:
+                score = new_score
+                schedule = new_schedule
+            elif compare <= SA_value:
+                score = new_score
+                schedule = new_schedule
+                
+            else:
+                table = schedule.get_timetable()
+
+    return schedule
+
+            
+                                            
     
 
         

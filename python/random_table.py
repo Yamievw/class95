@@ -4,6 +4,7 @@ from read_data import *
 from schedule import *
 import math
 import random
+from roadmap import roadmap
 
 def random_table():
     courses_test = courses.values()
@@ -25,8 +26,8 @@ def random_table():
         j = random.randint(0, 3)  # no evening timeslot.
         test.add_activity(i, j, activity)
 
-    test = add_students(test)
-
+    #test = add_students(test)
+    test = add_students2(test)
     return test
 
 def add_students(schedule):
@@ -63,7 +64,45 @@ def make_groups(activity, timetable):
 
 
 
-frits = random_table()
-frits = frits.timetable
-print frits[0][0][0].get_participants()[0]
-print frits[0][0][0].get_participants()[1]
+
+
+
+def add_students2(schedule):
+    # zie http://stackoverflow.com/questions/48087/select-n-random-elements-from-a-listt-in-c-sharp
+    # voor randomization.
+    
+    table = schedule.get_timetable()
+    schedule_roadmap = roadmap(schedule)
+    
+    for key in schedule_roadmap:
+        coor = schedule_roadmap[key]
+        no_groups = len(coor)
+        # day, timeslot, activity number
+        course_name = key.split("_", 1)[0]
+        registrants = courses[course_name].get_registrants()
+
+        
+        
+        # get capacity from first instance of activity
+        activity1 = table[coor[0][1]][coor[0][0]][coor[0][2]]
+        capacity = activity1.get_capacity()
+        units_per_student = courses[course_name].per_student[str(activity1.type)]
+        
+        registrants_per_activity = units_per_student*int(math.ceil(len(registrants)/float(no_groups)))
+
+        for i in range(len(coor)):
+            activity = table[coor[i][1]][coor[i][0]][coor[i][2]]        
+            begin = (i)*registrants_per_activity
+            end = (i+1)*registrants_per_activity
+            activity.update_participants(registrants[begin:end])
+            table[coor[i][1]][coor[i][0]][coor[i][2]] = activity
+            
+    schedule.update_timetable(table)
+    return schedule
+
+
+ 
+        
+
+    
+    

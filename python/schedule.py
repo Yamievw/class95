@@ -26,6 +26,12 @@ class Activity():
     def get_participants(self):
         return self.participants
 
+    def update_participants(self, participants):
+        if type(participants) != type([]):
+            return 0
+        self.participants = participants
+        return 1
+
     def add_participants(self, participants):
         self.participants.append(participants) # sanity check iemand twee keer. 
 

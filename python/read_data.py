@@ -11,7 +11,8 @@ class Courses():
         self.name = name
         # a dictionary with keys "lectures", "tutorials" or "labs" and the
         # required number per student and capacity. 
-        self.components = components 
+        self.components = components
+        self.per_student = {}
         self.registrants = registrants # a list containing students in an unknown format. 
         self.registrants = sorted(self.registrants) # is dit nodig of niet? hangt van format registrants af. 
         self.amount_registrants = len(self.registrants)
@@ -46,10 +47,16 @@ class Courses():
         tutorial_result = tutorials_per_student*len(self.registrants)/float(tutorials_capacity)
         labs_result = labs_per_student*len(self.registrants)/float(labs_capacity)
 
+        self.per_student["tutorials"] = tutorials_per_student
+        self.per_student["labs"] = labs_per_student
+        self.per_student["lectures"] = self.components["lectures"][0]
+
         
         # math.ceil to ensure enough activities
         self.components["tutorials"] = (int(math.ceil(tutorial_result)), tutorials_capacity)
         self.components["labs"] = (int(math.ceil(labs_result)), labs_capacity)
+        
+        
         
         
         
