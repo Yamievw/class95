@@ -2,6 +2,7 @@
 
 import matplotlib.pyplot as plt
 
+Tmin = 0.1
 def cool(scheme, T0, time):
     """ general cooling function called by other modules """
     T = 0
@@ -15,11 +16,14 @@ def cool(scheme, T0, time):
     else:
         return None
 
-    
-    if T >=0:
+    if T > Tmin:
         return T
-    else:
-        return 0
+    # minimum temperature to avoid overflow error. 
+    elif T < Tmin:
+        return Tmin
+    
+    
+    
 
 def cool_linear(T0, time):
     """ a linear cooling scheme """

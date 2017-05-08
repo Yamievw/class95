@@ -12,17 +12,20 @@ temperature = []
 
 schedule = random_table()
 
-T0 = 300
+T0 = 10000
 
 # activities test
 T = T0
-for i in range(1000):
+for i in range(5000):
     iterations.append(i)  
     scores.append(schedule.score())
     temperature.append(T)
     
     schedule = SA_activities(schedule, "exp", T)
     T = cool("exp", T0, i)
+    if i % 500 ==0:
+        print i
+
 
 plt.figure()
 plt.subplot(211)    
@@ -39,21 +42,23 @@ plt.title("Temperature")
 
 
 
-
-
+print "--------------------------"
 
 # students test
 iterations = []
 scores = []
 temperature = []
+
 T = T0
-for i in range(1000):
+for i in range(5000):
     iterations.append(i)  
     scores.append(schedule.score())
     temperature.append(T)
     
     schedule = SA_students(schedule, "exp", T)
     T = cool("exp", T0, i)
+    if i % 500 ==0:
+        print i
 
 
 plt.figure()

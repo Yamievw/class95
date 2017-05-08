@@ -1,0 +1,8 @@
+De week van 8 mei:
+
+Lokalen toevoegen
+Random studenten gooien en checken of het werkt
+Avondslot bij het rooster betrekken
+Hill Climber Students afmaken
+Beginnen aan genetisch algoritme
+Beginnen met schrijven
