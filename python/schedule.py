@@ -36,7 +36,7 @@ class Activity():
         self.participants.append(participants) # sanity check iemand twee keer. 
 
     def __str__(self):
-        return self.name, self.type, self.capacity, self.room, self.participants
+        return str(self.name) + " " + str(self.type)
 
 class Schedule():
     # a 5x5 matrix that represents the available timeslots

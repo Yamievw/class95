@@ -89,7 +89,7 @@ def add_students2(schedule):
         units_per_student = courses[course_name].per_student[str(activity1.type)]
         
         registrants_per_activity = units_per_student*int(math.ceil(len(registrants)/float(no_groups)))
-
+        
         for i in range(len(coor)):
             activity = table[coor[i][1]][coor[i][0]][coor[i][2]]        
             begin = (i)*registrants_per_activity
