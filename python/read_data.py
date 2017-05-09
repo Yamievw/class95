@@ -89,19 +89,48 @@ class Student():
     
     
     
+    
+    
+    
+    
+    
+    
     class Rooms():
         def __init__(self, name, capacity)
-        self.name = 
-        self.capacity = 
+        self.name = name
+        self.capacity = capacity
+        
+        def get_name(self):
+            return self.name
+        def get_capacity(self):
+            return self.capacity
+        
 
     
 students = {}
 courses = {}
+rooms = {}
+
+
 
 ###
 ### Fiks lowercase vaknamen enzo. 
 ###
 
+
+
+# read in rooms
+with open('rooms.CSV', 'rb') as csvfile:
+    reader = csv.reader(csvfile, delimiter = ";")
+    for row in reader:
+        name = row[0]
+        capacity = row[1]
+        
+        # create course object. 
+        rooms[row[0]] = Rooms(row[0], row[1])
+
+        
+        
 # read in courses
 with open('vakken.CSV', 'rb') as csvfile:
     reader = csv.reader(csvfile, delimiter = ";")
@@ -124,7 +153,10 @@ with open('vakken.CSV', 'rb') as csvfile:
         
         # create course object. 
         courses[row[0]] = Courses(row[0], components, [])
-          
+     
+    
+    
+    
 # read in students and add them to courses
 with open('studenten_roostering.CSV', 'rb') as csvfile:
     # open txt file. 
