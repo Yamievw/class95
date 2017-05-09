@@ -23,6 +23,9 @@ random_students en swap_students hierop aanpassen
 
 De voorgenoemde verwijzing zou een unieke string kunnen zijn, die zo een unieke lijst met participants uit een dictionary haalt. Of wellicht een instantie van een werkgroep-object. Ik weet niet hoe dat precies werkt met pointers daarnaartoe. 
 
+UPDATE:
+Zie mijn file "are_classes_like_pointers.py". Dit suggereert sterk dat een werkgroep-class de beste manier is om dit te implementeren. Jippie!
+
 Groetjes,
 
 Rob 
