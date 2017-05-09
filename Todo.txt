@@ -7,3 +7,25 @@ Hill Climber Students afmaken *YM
 Beginnen aan genetisch algoritme *R
 Beginnen met schrijven *Volgende Week, YM oefenen met Latex
 Bonus en maluspunten toevoegen *YM
+
+
+----- WERKGROEPEN ----------
+AANLEIDING:
+Bij het berekenen van een bonuspunt gaat het erom dat student X een aantal dagen heeft tussen opeenvolgende activiteiten. Het probleem als je geen vaste werkgroepen is echter dat je voor elke student in activiteit A1 moet kijken of die in activiteit A2 voorkomt. Dit is best wel ingewikkeld. Werkgroepen lossen dit probleem op.
+
+Verder vinden we (Yamie en ik) het eigenlijk ook netter dat je je labs en tutorials met dezelfde groep hebt. Anders is je lab op dinsdag misschien wel met 5 mensen, terwijl je donderdag met z'n 23-en zit. 
+
+IMPLEMENTATIE:
+Bij het random gooien van groepen moet je dus rekening houden met werkcollegegroepen. Het beste zou zijn als we met een pointer-achtige structuur werken. Dus als je "Compilerbouw Tutorials Group A" aanpast, dat dat dan bij alle activiteiten gebeurt. Dit betekent dat afzonderlijke activiteiten geen lijst hebben met namen, maar een verwijzing bevatten naar een groep die ergens anders gedefinieerd is. We moeten dus:
+
+Activity object aanpassen
+random_students en swap_students hierop aanpassen
+
+De voorgenoemde verwijzing zou een unieke string kunnen zijn, die zo een unieke lijst met participants uit een dictionary haalt. Of wellicht een instantie van een werkgroep-object. Ik weet niet hoe dat precies werkt met pointers daarnaartoe. 
+
+Groetjes,
+
+Rob 
+
+-----------------------------
+
