@@ -12,17 +12,18 @@ temperature = []
 
 schedule = random_table()
 
-T0 = 10000
+T0 = 2000
+N = 1000
 
 # activities test
 T = T0
-for i in range(5000):
+for i in range(N):
     iterations.append(i)  
     scores.append(schedule.score())
     temperature.append(T)
     
     schedule = SA_activities(schedule, "exp", T)
-    T = cool("exp", T0, i)
+    T = cool("linN", T0, Tn, N, i)
     if i % 500 ==0:
         print i
 
@@ -50,13 +51,13 @@ scores = []
 temperature = []
 
 T = T0
-for i in range(5000):
+for i in range(N):
     iterations.append(i)  
     scores.append(schedule.score())
     temperature.append(T)
     
     schedule = SA_students(schedule, "exp", T)
-    T = cool("exp", T0, i)
+    T = cool("linN", T0, Tn, N,  i)
     if i % 500 ==0:
         print i
 

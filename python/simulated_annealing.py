@@ -17,7 +17,7 @@ def SA_activities(schedule, cooling, T0, iterations=1):
     
     for i in range(iterations):
         # cool
-        T = cool(cooling, T0, i)
+        T = cool(cooling, T0, Tn, iterations, i)
 
               
         # move value randomly and assess new score. 
@@ -56,7 +56,7 @@ def SA_students(schedule, cooling, T0, iterations=1):
    
 
     for k in range(iterations):
-        T = cool(cooling, T0, k)
+        T = cool(cooling, T0, Tn, iterations, k)
 
         
         # random selection of activity.
