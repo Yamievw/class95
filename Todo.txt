@@ -6,3 +6,4 @@ Avondslot bij het rooster betrekken *YM
 Hill Climber Students afmaken *YM
 Beginnen aan genetisch algoritme *R
 Beginnen met schrijven *Volgende Week, YM oefenen met Latex
+Bonus en maluspunten toevoegen *YM
