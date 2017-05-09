@@ -85,6 +85,14 @@ class Student():
         return self.courses
     def get_coursenumber(self):
         return self.coursenumber
+    
+    
+    
+    
+    class Rooms():
+        def __init__(self, name, capacity)
+        self.name = 
+        self.capacity = 
 
     
 students = {}
