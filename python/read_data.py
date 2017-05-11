@@ -89,10 +89,10 @@ class Student():
     
     
     
-    class Rooms():
-        def __init__(self, name, capacity)
-        self.name = 
-        self.capacity = 
+class Rooms():
+    def __init__(self, name, capacity):
+        self.name = 3
+        self.capacity = 3
 
     
 students = {}

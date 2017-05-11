@@ -1,6 +1,8 @@
 from genetic_utils import *
 import math
 from swapper import *
+from roadmap import roadmap
+import copy
 
 
 def evolve(population, mut_frac=.5):
@@ -66,10 +68,75 @@ def cross(survivors, N):
     """ this function crosses a fraction of the surviving population """
     children = []
 
+    print "starting to cross"
+    
+    best_block = score_sort(survivors, "block")
+    best_student = score_sort(survivors, "student")
+
+    i = 0
+    j = 0
+    k = 2
+    print "len", len(best_block)
+    while len(children) < N:
+        print i, j, N
+
+        schedule1 = best_block[i]
+        schedule2 = best_block[j]
+
+        # kruislings selecteren, denk hier later over na, nu eerst eten
+        
+        if schedule1 != schedule2:
+            print "let's cross"
+            children.append(cross_block_student(schedule1, schedule2))
+        if i == j:
+            if i == k:
+                i = 
+            j += 1
+        elif j == k:
+            i += 1
+        
+        
     return children
     
     
     
+def cross_block_student(schedule1, schedule2):
+    """ crosses two schedules, keeping the first block schedule and
+        the second student groups """
+
+    table1 = copy.deepcopy(schedule1.timetable)
+    table2 = copy.deepcopy(schedule2.timetable)
+    roadmap2 = roadmap(schedule2)
     
+
+    for day in range(5):
+        for timeslot in range(5):
+            activities1 = table1[timeslot][day]
+            for i in range(len(activities1)):
+                # get activity1
+                activity1 = activities[i]                 
+                activity1_name = str(activity.name) + "_" + str(activity.type)
+
+                print activity1
+
+                # get activity2
+                coor2 = roadmap2[activity1_name][0]
+                activity2 = table2[coor2[1]][coor[0]][coor[2]]
+
+                print activity2
+
+                #swap participants
+                participants2 = activity2.participants
+                activity1.update_participants(participants2)
+                table1[timeslot][day][i] = activity1
+    baby = copy.deepcopy(schedule1) # otherwise we get pointer problems.
+    baby = baby.update_timetable(table1)
+
+    return baby
+
+        
+                
+                
+                
     
     

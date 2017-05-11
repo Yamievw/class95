@@ -4,6 +4,7 @@ from genetic_utils import *
 
 import matplotlib.pyplot as plt
 
+
 population = []
 population_size = 20
 iteration = 1000
@@ -46,7 +47,7 @@ for i in range(population_size):
     table = random_table()
     population.append(table)
 
-for i in range(iteration):
+for i in range(2):
     if i%100 == 0:
         print i
 
@@ -55,7 +56,7 @@ for i in range(iteration):
     maxima.append(values[0])
     averages.append(values[1])
     sdevs.append(values[2])
-    population = evolve(population, 1)
+    population = evolve(population, .5)
 
 
 
