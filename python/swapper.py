@@ -8,7 +8,7 @@ def swap_activity(schedule):
     table = copy.deepcopy(schedule.get_timetable())
     
     day1 = random.randint(0, 4)
-    timeslot1 = random.randint(0, 3) # not 17:00-19:00.
+    timeslot1 = random.randint(0, 4) # wel 17:00-19:00.
     count1 = len(table[timeslot1][day1])
     try:
         activity1 = random.randint(0, count1 - 1)
@@ -17,7 +17,7 @@ def swap_activity(schedule):
 
     # swap value 2
     day2 = random.randint(0, 4)
-    timeslot2 = random.randint(0, 3) # not 17:00-19:00. 
+    timeslot2 = random.randint(0, 4) # wel 17:00-19:00. 
   
     
     if activity1 != None:
