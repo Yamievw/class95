@@ -12,7 +12,7 @@ def hill_climber_activities(schedule, iterations=1):
     for i in range(iterations):
         # swap value 1
         day1 = random.randint(0, 4)
-        timeslot1 = random.randint(0, 3) #niet 17:00-19:00
+        timeslot1 = random.randint(0, 4) #wel 17:00-19:00
         count1 = len(table[timeslot1][day1])
         try:
             activity1 = random.randint(0, count1 - 1)
@@ -21,7 +21,7 @@ def hill_climber_activities(schedule, iterations=1):
 
         # swap value 2
         day2 = random.randint(0, 4)
-        timeslot2 = random.randint(0, 3) #niet 17:00-19:00
+        timeslot2 = random.randint(0, 4) #wel 17:00-19:00
         count2 = len(table[timeslot2][day2])
         try:
             activity2 = random.randint(0, count2 - 1)
