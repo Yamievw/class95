@@ -23,7 +23,7 @@ def random_table():
 
     for activity in activities:
         i = random.randint(0, 4)
-        j = random.randint(0, 3)  # no evening timeslot.
+        j = random.randint(0, 4)  # wel evening timeslot.
         test.add_activity(i, j, activity)
 
     #test = add_students(test)
