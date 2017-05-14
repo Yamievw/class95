@@ -127,14 +127,14 @@ rooms = {}
 
 
 # read in rooms
-# with open('rooms.CSV', 'rb') as csvfile:
-#     reader = csv.reader(csvfile, delimiter = ";")
-#     for row in reader:
-#         name = row[0]
-#         capacity = row[1]
+with open('rooms.CSV', 'rb') as csvfile:
+    reader = csv.reader(csvfile, delimiter = ";")
+    for row in reader:
+        name = row[0]
+        capacity = row[1]
         
-#         # create course object. 
-#         rooms[row[0]] = Rooms(row[0], row[1])
+        # create course object. 
+        rooms[row[0]] = Rooms(row[0], row[1])
 
         
         
