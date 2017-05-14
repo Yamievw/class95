@@ -89,12 +89,12 @@ class Student():
     
     
     
-<<<<<<< HEAD
-class Rooms():
-    def __init__(self, name, capacity):
-        self.name = 3
-        self.capacity = 3
-=======
+# <<<<<<< HEAD
+# class Rooms():
+#     def __init__(self, name, capacity):
+#         self.name = 3
+#         self.capacity = 3
+# =======
     
     
     
@@ -102,16 +102,16 @@ class Rooms():
     
     
     class Rooms():
-        def __init__(self, name, capacity)
-        self.name = name
-        self.capacity = capacity
+        def __init__(self, name, capacity):
+            self.name = name
+            self.capacity = capacity
         
         def get_name(self):
             return self.name
         def get_capacity(self):
             return self.capacity
         
->>>>>>> d8faaf4213a054ccc95ac81d4f5ce752b2a6bd4d
+# >>>>>>> d8faaf4213a054ccc95ac81d4f5ce752b2a6bd4d
 
     
 students = {}
@@ -127,14 +127,14 @@ rooms = {}
 
 
 # read in rooms
-with open('rooms.CSV', 'rb') as csvfile:
-    reader = csv.reader(csvfile, delimiter = ";")
-    for row in reader:
-        name = row[0]
-        capacity = row[1]
+# with open('rooms.CSV', 'rb') as csvfile:
+#     reader = csv.reader(csvfile, delimiter = ";")
+#     for row in reader:
+#         name = row[0]
+#         capacity = row[1]
         
-        # create course object. 
-        rooms[row[0]] = Rooms(row[0], row[1])
+#         # create course object. 
+#         rooms[row[0]] = Rooms(row[0], row[1])
 
         
         
