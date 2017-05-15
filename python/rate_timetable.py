@@ -89,17 +89,18 @@ def check_conflict(timetable):
                  
     return -conflicts
 
-def check_conflictRooms(timetable):
+def check_rooms(timetable):
     """Checks if a room in a timeslot only contains 1 component and
         if the number of students dont pass max capacity"""
     conflictRooms = 0
     for day in range(5):
         for timeslot in range(5):
-            for rooms in timetable[timeslot][day]:
+            for activity in timetable[timeslot][day]:
+                room = activity.room
                 if courses.components in rooms > 1:
-                    conflictRooms += 1
+                    rooms += 1
                 if len(activity.participants) > rooms.capacity:
-                    conflicRooms += 1
+                    rooms += 1
                     
                     
 # def check_bonus(timetable):
