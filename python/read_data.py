@@ -89,29 +89,17 @@ class Student():
     
     
     
-# <<<<<<< HEAD
-# class Rooms():
-#     def __init__(self, name, capacity):
-#         self.name = 3
-#         self.capacity = 3
-# =======
     
     
-    
-    
-    
-    
-    class Rooms():
-        def __init__(self, name, capacity):
-            self.name = name
-            self.capacity = capacity
+class Rooms():
+    def __init__(self, name, capacity):
+        self.name = name
+        self.capacity = capacity
         
-        def get_name(self):
-            return self.name
-        def get_capacity(self):
-            return self.capacity
-        
-# >>>>>>> d8faaf4213a054ccc95ac81d4f5ce752b2a6bd4d
+    def get_name(self):
+        return self.name
+    def get_capacity(self):
+        return self.capacity
 
     
 students = {}
