@@ -102,10 +102,10 @@ def check_conflictRooms(timetable):
                     conflicRooms += 1
                     
                     
-def check_bonus(timetable):
-    bonus = 0
-    for day in range(5):
-        for timeslot in range(5):
+# def check_bonus(timetable):
+#     bonus = 0
+#     for day in range(5):
+#         for timeslot in range(5):
                 
                 
                 
