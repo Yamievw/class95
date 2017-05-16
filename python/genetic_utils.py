@@ -1,13 +1,36 @@
 from operator import itemgetter
 from rate_timetable import *
 
+def assess(population, population_size):
+    N = float(len(population))  
 
+    # sanity check: population size. 
+    if N != population_size:
+        return 0
+    
+    max_score = score_sort(population)[0].score()
+
+    tot_score = 0
+    for schedule in population:
+        tot_score += schedule.score()
+    ave_score = tot_score/N
+
+    sdev = 0
+    for schedule in population:
+        sdev += (ave_score - schedule.score())**2
+        
+    
+    try:
+        sdev = math.sqrt(sdev/N)
+    except ValueError:
+        sdev = 0
+        
+    return max_score, ave_score, sdev
 
 def score_sort(population, crit="score"):
     """ sorts a given population by its score """
 
-    
-    
+
     # score schedules in population
     scored = []
 

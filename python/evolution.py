@@ -21,10 +21,8 @@ def evolve(population, mut_frac=.5):
 
     # relative fraction of mutation vs crossover
     cro_frac = 1 - mut_frac
-    mut_count = population_size*mut_frac
-    cro_count = population_size*cro_frac
-
-    
+    mut_count = int(population_size*mut_frac)
+    cro_count = int(population_size*cro_frac)   
 
     # make sure population is restored to original size. 
     if mut_count + cro_count != population_size:
@@ -33,7 +31,7 @@ def evolve(population, mut_frac=.5):
     # our new population
     next_generation = []
 
-    next_generation += mutate(survivors, mut_count)
+    next_generation += mutate(survivors, mut_count)   
     next_generation += cross(survivors, cro_count)
 
     return next_generation
@@ -53,7 +51,6 @@ def select(population):
 def mutate(survivors, N):
     """ this function creates offspring with random mutations """
     children = []
-
     # ensure sufficient children, with preference given to first in survivors. 
     while len(children) < N:
         for survivor in survivors:
@@ -61,48 +58,55 @@ def mutate(survivors, N):
             child = swap_activity(survivor)
             child = swap_student(survivor, 3)
             children.append(child)
+            if len(children) == N:
+                break
+            
     return children
         
 
 def cross(survivors, N):
     """ this function crosses a fraction of the surviving population """
     children = []
-
-    print "starting to cross"
     
     best_block = score_sort(survivors, "block")
     best_student = score_sort(survivors, "student")
 
-    i = 0
-    j = 0
-    k = 2
-    print "len", len(best_block)
+    
+    maximum = 0
     while len(children) < N:
-        print i, j, N
+        for i in range(maximum + 1):
+            schedule1 = best_block[i]
+            schedule2 = best_student[maximum]
 
-        schedule1 = best_block[i]
-        schedule2 = best_block[j]
+            if i == maximum:
+                if schedule1 != schedule2:
+                    children.append(cross_block_student(schedule1, schedule2))
+                if len(children) == N: # make sure we don't get too many babies. 
+                    break
+                maximum = (maximum + 1) % len(survivors) # ensure we don't go too high. 
+                
 
-        # kruislings selecteren, denk hier later over na, nu eerst eten
-        
-        if schedule1 != schedule2:
-            print "let's cross"
-            children.append(cross_block_student(schedule1, schedule2))
-        if i == j:
-            if i == k:
-                i = 
-            j += 1
-        elif j == k:
-            i += 1
-        
-        
+            # cross both ways.
+            else: 
+                if schedule1 != schedule2:
+                    children.append(cross_block_student(schedule1, schedule2))
+                    if len(children) == N: # make sure we don't get too many babies. 
+                        break
+
+                schedule1 = best_block[maximum]
+                schedule2 = best_student[i]
+                if schedule1 != schedule2:
+                    children.append(cross_block_student(schedule1, schedule2))
+                    if len(children) == N: # make sure we don't get too many babies. 
+                        break
+
     return children
     
     
     
 def cross_block_student(schedule1, schedule2):
-    """ crosses two schedules, keeping the first block schedule and
-        the second student groups """
+    """ crosses two schedules, keeping the first's block schedule and
+        the second's student groups """
 
     table1 = copy.deepcopy(schedule1.timetable)
     table2 = copy.deepcopy(schedule2.timetable)
@@ -114,21 +118,22 @@ def cross_block_student(schedule1, schedule2):
             activities1 = table1[timeslot][day]
             for i in range(len(activities1)):
                 # get activity1
-                activity1 = activities[i]                 
-                activity1_name = str(activity.name) + "_" + str(activity.type)
+                activity1 = activities1[i]                 
+                activity1_name = str(activity1.name) + "_" + str(activity1.type)
 
-                print activity1
+                
 
                 # get activity2
                 coor2 = roadmap2[activity1_name][0]
-                activity2 = table2[coor2[1]][coor[0]][coor[2]]
+                activity2 = table2[coor2[1]][coor2[0]][coor2[2]]
 
-                print activity2
+                
 
                 #swap participants
                 participants2 = activity2.participants
                 activity1.update_participants(participants2)
                 table1[timeslot][day][i] = activity1
+                
     baby = copy.deepcopy(schedule1) # otherwise we get pointer problems.
     baby = baby.update_timetable(table1)
 
