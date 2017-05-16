@@ -103,7 +103,39 @@ def check_room(timetable):
                 if len(activity.participants) > room.capacity:
                     room += 1
                     
-    return room                     
+    return room   
+
+def check_bonus(timetable):
+    bonus = 20
+
+    schedule = random_table()
+    mapp = roadmap(schedule)
+    true_set = mapp[course.components]
+
+    set1 = timetable[0] and timetable[3] # ma-do
+    set2 = timetable[1] and timetable[4] # di-vrij
+    set3 = timetable[0] and timetable[2] and timetable[4] #ma-woe-vrij
+    set4 = timetable[0] and timetable[1] and timetable[3] and timetable[4] #ma-di-do-vrij
+
+    for day in range(7):
+        for activity in timetable[day]:
+            if true_set == 2:
+                if true_set != set1:
+                    bonus -= 5
+                    print bonus
+                if true_set != set2:
+                    bonus -= 5
+                    print bonus
+            if true_set == 3:
+                if true_set != set3:
+                    bonus -= 5
+                    print bonus
+            if true_set == 4:
+                if true_set != set4:
+                    bonus -= 5
+                    print bonus
+    return bonus
+
                 
                 
                 
