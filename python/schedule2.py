@@ -86,11 +86,9 @@ class Schedule():
             for timeslot in range(5):
                 print "------------"+ self.timeslot_dict[timeslot] + "----------"
                 for activity in self.timetable[timeslot][day]:
-                    the_name = str(activity.name.split("_")[0])
                     group = str(activity.group_id)
                     if activity.ttype == "lectures":
-                        print the_name + " " + activity.ttype + " " + group
+                        print activity.name + " " + activity.ttype + " " + group
                     else:
-                        print the_name + " " + activity.ttype + " Group " + group
-                    # + " " + activity.type + " " + activity.group
+                        print activity.name + " " + activity.ttype + " Group " + group
         return "--"

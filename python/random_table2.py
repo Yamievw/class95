@@ -4,7 +4,7 @@ from read_data import *
 from schedule2 import *
 import math
 import random
-from roadmap import roadmap
+# from roadmap import roadmap
 
 def random_table():
     courses_test = courses.values()
@@ -15,7 +15,9 @@ def random_table():
     for course in courses_test:
         components = course.get_components()
         registrants = course.get_registrants()
+        # print "lenreg", len(registrants)
         course_name = course.get_name()
+        # print course_name
         
 
         for key in components:
@@ -26,7 +28,7 @@ def random_table():
             for i in range(n):
                 # "ik ben in range n"
                 group_id = str(i + 1)
-                name = course.get_name() + "_" + key + "_" + group_id
+                name = course.get_name()
                 ttype = key
                 capacity = components[key][1]
                 activity = Activity(name, ttype, capacity, group_id)
@@ -37,8 +39,8 @@ def random_table():
                 activities.append(activity)
 
                 # OM TE TESTENN!
-                print len(groups[i]), n
-                print activity.name, activity.ttype, activity.capacity, activity.group_id, len(activity.participants)
+                # print len(groups[i]), n,  activity.capacity, len(activity.participants)
+                # print activity.name, activity.ttype, activity.group_id
 
     for activity in activities:
         for i in range(units_per_student):
@@ -50,5 +52,5 @@ def random_table():
     return test
 
 # OM TE TESTENN!
-oef = random_table()
-print oef
+# oef = random_table()
+# print oef

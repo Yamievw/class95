@@ -1,3 +1,5 @@
+# from random_table2 import *
+
 def roadmap(schedule, lectures_bool=True):
     timetable = schedule.get_timetable()
 
@@ -23,12 +25,6 @@ def roadmap(schedule, lectures_bool=True):
     return roadmap
 
 
-
-##from random_table import *
-##
-##schedule = random_table()
-##
-##mapp = roadmap(schedule)
-##
-##print mapp["Collectieve Intelligentie_lectures"]
-##print schedule
+# schedule = random_table()
+# mapp = roadmap(schedule)
+# print mapp["Advanced Heuristics_labs"]
