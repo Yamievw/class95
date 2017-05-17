@@ -1,7 +1,7 @@
 # creates a datastructure for the schedule
 
-from read_data import *
-from rate_timetable import *
+from read_data2 import *
+# from rate_timetable import *
 import numpy as np
 
 class Activity():
@@ -19,7 +19,7 @@ class Activity():
     def get_name(self):
         return self.name
     def get_type(self):
-        return self.type
+        return self.ttype
     def get_capacity(self):
         return self.capacity
     def get_room(self):
@@ -45,7 +45,7 @@ class Activity():
         self.participants.append(participants) # sanity check iemand twee keer. 
 
     def __str__(self):
-        return str(self.name) + " " + str(self.type) + " " + str(self.group_id)
+        return str(self.name) + " " + str(self.ttype) + " " + str(self.group_id)
 
 class Schedule():
     # a 5x5 matrix that represents the available timeslots
