@@ -1,7 +1,7 @@
 # creates a datastructure for the schedule
 
 from read_data import *
-# from rate_timetable import *
+from rate_timetable import *
 import numpy as np
 
 class Activity():

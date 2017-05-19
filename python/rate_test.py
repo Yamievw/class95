@@ -1,6 +1,6 @@
 from read_data import *
 from schedule import *
-from random_table import *
+from random_table2 import *
 import random
 
 courses_test = courses.values()
@@ -41,12 +41,30 @@ test = Schedule()
 ##                    activity.add_participants(courses[activity.name].get_registrants())
 ##                # ook nog lectures & labs adden
 
-test = random_table()
-test = test.timetable
-check_bonus(test)
-            
+
+import matplotlib.pyplot as plt
+
+
+thing = []
+
+for i in range(1000):
+    test1 = random_table()
+    test = test1.timetable
+    score = check_bonus(test)
+    thing.append(score)
+    if score == max(thing):
+        best = test1
+
+print best
+print best.score()
+plt.hist(thing, bins=np.arange(min(thing), max(thing) + 10, 10))
+plt.show()
     
     
-    
-    
-    
+##    
+##    
+##course= courses["Machine Learning"]
+##ps = course.per_student
+##
+##print ps
+

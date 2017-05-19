@@ -51,6 +51,7 @@ class Courses():
         self.per_student["tutorials"] = tutorials_per_student
         self.per_student["labs"] = labs_per_student
         self.per_student["lectures"] = self.components["lectures"][0]
+        self.per_student["all"] = tutorials_per_student + labs_per_student + self.components["lectures"][0]
 
         
         # math.ceil to ensure enough activities

@@ -46,10 +46,13 @@ def rate_timetable(timetable):
         if value != 0:
             score = 0
             return score
-
+    print "validity", score
     score += check_day(timetable)
+    print "then day", score
     score += check_conflict(timetable)
-    score += check_room(timetable)
+    print "then conflict", score
+    score += check_bonus(timetable)
+    #score += check_room(timetable)
     
     return score
 
@@ -63,7 +66,9 @@ def check_day(timetable):
         for timeslot in range(5):
             for activity in timetable[timeslot][day]:
                 name = activity.name
+                group_id = activity.group_id
                 try:
+                    
                     daycheck[name] = daycheck[name] + 1
                 except KeyError:
                     daycheck[name] = 1
@@ -108,22 +113,53 @@ def check_room(timetable):
 
 def check_bonus(timetable):
     
-    mapp = roadmap(timetable)
+    mapp = roadmap_course(timetable)
 
     bonus = 0
 
+    two_units1 = [0, 3]
+    two_units2 = [1, 4]
+    three_units = [0, 2, 4]
+    four_units = [0, 1, 3, 4]
+
     for key in mapp:
-        course_name = key.split("_")[0]
-        activity_type = key.split("_")[1]
-        no_groups = courses[course_name].components[activity_type][0]
-        print key
+        # find out how many groups there are and the amount of activities per student. 
+        no_groups = courses[key].components["tutorials"][0]
+        no_units = courses[key].per_student["all"]
+
+        # workaround for courses without labs or tutorials. 
+        if no_groups == 0:
+            no_groups = 1
+
+        # we only look at 2 to 4 activities per student. 
+        if no_units < 2 or no_units > 4:
+            continue
+            
         for test_id in range(1, no_groups + 1):
+
+            # fill this list with the configuration of this subject and group. 
+            current = []
+            
             for coor in mapp[key]:
-                activity = get_activity(coor)
-                if 
+                activity = get_activity(coor, timetable)
+                group_id = int(activity.group_id)
+
+                day = coor[0]
+                                
+                if group_id == 0 or group_id == test_id:
+                    current.append(day)
+
+            if no_units == 2 and (current == two_units1 or current == two_units2):
+                bonus += 20./no_groups
+            elif no_units == 3 and current == three_units:
+                bonus += 20./no_groups
+            elif no_units == 4 and current == four_units:
+                bonus += 20./no_groups
+    return bonus
+                
                 
 def get_activity(coor, table):
-    return table[coor[1]][coor[0]][coor[2]]            
+    return table[coor[1]][coor[0]][coor[2]]       
             
             
                 

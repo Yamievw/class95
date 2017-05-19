@@ -31,6 +31,8 @@ def random_table():
                 name = course.get_name()
                 ttype = key
                 capacity = components[key][1]
+                if key == "lectures":
+                    group_id = 0                
                 activity = Activity(name, ttype, capacity, group_id)
                 if key == "lectures":
                     activity.update_participants(registrants)
