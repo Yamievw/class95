@@ -1,7 +1,11 @@
 # from random_table2 import *
 
 def roadmap(schedule, lectures_bool=True):
-    timetable = schedule.get_timetable()
+    # allow for two types of input. 
+    try:
+        timetable = schedule.get_timetable()
+    except:
+        timetable = schedule
 
     roadmap = {}
 

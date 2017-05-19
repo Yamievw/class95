@@ -16,6 +16,7 @@ class Courses():
         self.registrants = registrants # a list containing students in an unknown format. 
         self.registrants = sorted(self.registrants) # is dit nodig of niet? hangt van format registrants af. 
         self.amount_registrants = len(self.registrants)
+    
         
     def __str__():
         return self.name

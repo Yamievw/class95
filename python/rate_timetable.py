@@ -2,6 +2,7 @@
 # objects in the timeslots. 
 
 from read_data import *
+from roadmap import *
 
 def make_checklist(courses=courses):
     # creates a dictionary that keeps track of necessary timeslots per
@@ -106,37 +107,25 @@ def check_room(timetable):
     return room   
 
 def check_bonus(timetable):
-    bonus = 20
+    
+    mapp = roadmap(timetable)
 
-    schedule = random_table()
-    mapp = roadmap(schedule)
-    true_set = mapp[course.components]
+    bonus = 0
 
-    set1 = timetable[0] and timetable[3] # ma-do
-    set2 = timetable[1] and timetable[4] # di-vrij
-    set3 = timetable[0] and timetable[2] and timetable[4] #ma-woe-vrij
-    set4 = timetable[0] and timetable[1] and timetable[3] and timetable[4] #ma-di-do-vrij
-
-    for day in range(7):
-        for activity in timetable[day]:
-            if true_set == 2:
-                if true_set != set1:
-                    bonus -= 5
-                    print bonus
-                if true_set != set2:
-                    bonus -= 5
-                    print bonus
-            if true_set == 3:
-                if true_set != set3:
-                    bonus -= 5
-                    print bonus
-            if true_set == 4:
-                if true_set != set4:
-                    bonus -= 5
-                    print bonus
-    return bonus
-
+    for key in mapp:
+        course_name = key.split("_")[0]
+        activity_type = key.split("_")[1]
+        no_groups = courses[course_name].components[activity_type][0]
+        print key
+        for test_id in range(1, no_groups + 1):
+            for coor in mapp[key]:
+                activity = get_activity(coor)
+                if 
                 
+def get_activity(coor, table):
+    return table[coor[1]][coor[0]][coor[2]]            
+            
+            
                 
                 
             
