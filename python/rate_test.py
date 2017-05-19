@@ -42,29 +42,58 @@ test = Schedule()
 ##                # ook nog lectures & labs adden
 
 
+#Test bonus points
+##import matplotlib.pyplot as plt
+##
+##
+##thing = []
+##
+##for i in range(1000):
+##    test1 = random_table()
+##    test = test1.timetable
+##    score = check_bonus(test)
+##    thing.append(score)
+##    if score == max(thing):
+##        best = test1
+##
+##print best
+##print best.score()
+##plt.hist(thing, bins=np.arange(min(thing), max(thing) + 10, 10))
+##plt.show()
+##    
+
+
+#Test new day check
+##test1 = random_table()
+##test = test1.timetable
+##score = check_day(test)
+##
+##print score
+##print test1
+
+
+# Test evening check
+##test1= random_table()
+##test = test1.timetable
+##score = check_evening(test)
+##print score
+##print test1
+
+scores = []
+for i in range(10000):
+    table = random_table()
+    score = table.score()
+    scores.append(score)
+
 import matplotlib.pyplot as plt
-
-
-thing = []
-
-for i in range(1000):
-    test1 = random_table()
-    test = test1.timetable
-    score = check_bonus(test)
-    thing.append(score)
-    if score == max(thing):
-        best = test1
-
-print best
-print best.score()
-plt.hist(thing, bins=np.arange(min(thing), max(thing) + 10, 10))
+import seaborn as sns
+plt.hist(scores,  bins=np.arange(min(scores), max(scores) + 10, 10))
+plt.xlabel("Score")
+plt.ylabel("Frequency")
+plt.title("Distribution of intial scores")
 plt.show()
     
     
-##    
-##    
-##course= courses["Machine Learning"]
-##ps = course.per_student
-##
-##print ps
+
+
 

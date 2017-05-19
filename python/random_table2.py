@@ -49,6 +49,13 @@ def random_table():
             if units_per_student != 0:
                 i = random.randint(0, 4)
                 j = random.randint(0, 4)  # wel evening timeslot.
+
+                # no more than one activity in the evening timeslot and max
+                # occupation is seven. 
+                while test.slot_full(i, j) or (j == 4 and test.evening_full(i)):
+                    i = random.randint(0,4)
+                    j = random.randint(0,4)
+                
                 test.add_activity(i, j, activity)
 
     return test

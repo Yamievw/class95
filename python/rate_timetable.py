@@ -1,5 +1,6 @@
 # rates any schedule, assuming a 5x5 matrix with activity 
 # objects in the timeslots. 
+import numpy as np
 
 from read_data import *
 from roadmap import *
@@ -46,12 +47,11 @@ def rate_timetable(timetable):
         if value != 0:
             score = 0
             return score
-    print "validity", score
+
     score += check_day(timetable)
-    print "then day", score
     score += check_conflict(timetable)
-    print "then conflict", score
     score += check_bonus(timetable)
+    score += check_evening(timetable)    
     #score += check_room(timetable)
     
     return score
@@ -60,23 +60,43 @@ def rate_timetable(timetable):
 def check_day(timetable):
     """ Checks if a subject is scheduled more
         than once a day. """
-    score = 0
+    score_day = 0
+    
     for day in range(5):
-        daycheck = {}
+        day_check = {}
         for timeslot in range(5):
             for activity in timetable[timeslot][day]:
                 name = activity.name
-                group_id = activity.group_id
+                group_id = int(activity.group_id)
+                
                 try:
-                    
-                    daycheck[name] = daycheck[name] + 1
+                    counters = day_check[name]
+                    counters[group_id] = counters[group_id] + 1
+                    day_check[name] = counters
                 except KeyError:
-                    daycheck[name] = 1
+                    no_groups = courses[name].no_groups
+                    counters = np.zeros(no_groups+1)
+                    counters[group_id] = 1
+                    day_check[name] = counters
 
-        for value in daycheck.values():
-            if value > 1:
-                score -= (value - 1)*10 #points deducted
-    return score
+        for key in day_check.keys():
+            counters = day_check[key]
+            if counters[0] > 1:
+                score_day -= (10*(counters[0] - 1))
+            no_groups = courses[key].no_groups
+##            if counters[0] > 1:
+##                print key, "lectures", counters, score_day
+            for group_id in range(1, len(counters)):
+                if counters[0] > 0 and counters[group_id] > 0:
+                    score_day -= (10./no_groups*counters[group_id])
+##                    print key, "combination", counters, score_day
+                elif counters[0] == 0 and counters[group_id] > 1:
+                    score_day -= (10./no_groups*(counters[group_id] - 1))
+##                    print key, "just groups", counters, score_day
+        
+
+    
+    return score_day
 
 def check_conflict(timetable):
     """ Checks timetable conflicts """
@@ -99,6 +119,9 @@ def check_conflict(timetable):
 def check_room(timetable):
     """Checks if a room in a timeslot only contains 1 component and
         if the number of students dont pass max capacity"""
+
+    # ik heb de call in de functie bovenin even uitgecomment, omdat ie
+    # anders crashte. Vergeet 'm niet terug te commenten bij het testen!
     room = 0
     for day in range(5):
         for timeslot in range(5):
@@ -109,7 +132,14 @@ def check_room(timetable):
                 if len(activity.participants) > room.capacity:
                     room += 1
                     
-    return room   
+    return room
+
+def check_evening(timetable):
+    score_evening = 0
+    for day in range(5):
+        for activity in timetable[4][day]:
+            score_evening -= 50
+    return score_evening
 
 def check_bonus(timetable):
     
@@ -124,7 +154,7 @@ def check_bonus(timetable):
 
     for key in mapp:
         # find out how many groups there are and the amount of activities per student. 
-        no_groups = courses[key].components["tutorials"][0]
+        no_groups = courses[key].no_groups
         no_units = courses[key].per_student["all"]
 
         # workaround for courses without labs or tutorials. 

@@ -55,8 +55,12 @@ class Courses():
 
         
         # math.ceil to ensure enough activities
-        self.components["tutorials"] = (int(math.ceil(tutorial_result)), tutorials_capacity)
-        self.components["labs"] = (int(math.ceil(labs_result)), labs_capacity)
+        tutorials_output = (int(math.ceil(tutorial_result)), tutorials_capacity)
+        labs_output = (int(math.ceil(labs_result)), labs_capacity)
+        self.components["tutorials"] = tutorials_output
+        self.components["labs"] = labs_output
+
+        self.no_groups = max([tutorials_output[0], labs_output[0]])
         
         
         
@@ -97,6 +101,9 @@ class Room():
     def __init__(self, name, capacity):
         self.name = name
         self.capacity = capacity
+
+    def __str__(self):
+        return self.name + " capacity: " + str(self.capacity)
         
     def get_name(self):
         return self.name
@@ -106,7 +113,7 @@ class Room():
     
 students = {}
 courses = {}
-room = {}
+rooms = {}
 
 
 
@@ -124,7 +131,7 @@ with open('rooms.CSV', 'rb') as csvfile:
         capacity = row[1]
         
         # create course object. 
-        room[row[0]] = Room(row[0], row[1])
+        rooms[row[0]] = Room(row[0], row[1])
 
         
         

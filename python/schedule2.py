@@ -73,6 +73,14 @@ class Schedule():
         self.timetable = new_timetable # sanity check hiero moet noggg! #check of het een 5 bij 5 matrix is!!
         return self
 
+
+    def evening_full(self, day):
+        """ check if evening timeslot is taken """
+        return self.timetable[4][day] != []
+    def slot_full(self, day, timeslot):
+        """ check if timeslot is full """
+        return len(self.timetable[timeslot][day]) == 7
+
     def add_activity(self, day, timeslot, activity):
         self.timetable[timeslot][day].append(activity)
     
