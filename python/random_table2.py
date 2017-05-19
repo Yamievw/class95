@@ -15,6 +15,8 @@ def random_table():
     for course in courses_test:
         components = course.get_components()
         registrants = course.get_registrants()
+        # shuffling registrants for truly random table.
+        random.shuffle(registrants)
         # print "lenreg", len(registrants)
         course_name = course.get_name()
         # print course_name
