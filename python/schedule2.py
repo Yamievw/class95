@@ -40,6 +40,9 @@ class Activity():
 
     def update_group_id(self, group_id):
         self.group_id = group_id
+        
+    def update_room(self, room):
+        self.room = room
 
     def add_participants(self, participants):
         self.participants.append(participants) # sanity check iemand twee keer. 
