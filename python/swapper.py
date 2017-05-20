@@ -136,33 +136,29 @@ def swap_room(schedule, no_swaps=1):
         activity2 = table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]]
         print activity1, activity2
 
-        room1 = activity1.
-        room2 = activity2.update_room
+        room1 = activity1.get_room()
+        room2 = activity2.get_room()
         # print room1, room2
 
 
         swap_room = room1
+        capacity = room1.capacity (vraag capacity van room, waarschijnlijk moet je daarvoor eerst het kamernummer hebben of hoe we het hebben opgeslagen en dan iets.get_capacity())
 
+        # check of het past      
+        if len(activity2.get_participants) <= capacity:
+            # make swap:
+            activity1.update_room(room2)
+            activity2.update_room(swap_room)
 
-        i += 1
+            # update table:
+            table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1
+            table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
 
-        # update activities.
-        activity1.update_room(room1)
-        activity2.update_room(room2)
-
-        # update table.
-        table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1
-        table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
+            # update i
+            i += 1
 
     # update schedule.
     new_schedule = copy.deepcopy(schedule)  # otherwise we get pointer problems.
     new_schedule = new_schedule.update_timetable(table)
 
     return new_schedule      
-        
-        
-        
-        
-
-    
-    
