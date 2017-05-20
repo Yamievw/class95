@@ -104,7 +104,61 @@ def swap_student(schedule, no_swaps=1):
             
     return new_schedule
 
-        
+  
+# NOG NIET AF
+def swap_room(schedule, no_swaps=1):
+    """ this function moves a specified number of rooms from one
+             activity to an activity of same type and name """
+    table = copy.deepcopy(schedule.get_timetable())
+    schedule_roadmap = roadmap(schedule, False)
+    activities = schedule_roadmap.keys()
+
+    # define the number of swaps
+    i = 0
+    while i < no_swaps:
+        n = random.randint(0, len(activities) - 1)
+        coordinates = schedule_roadmap[activities[n]]
+
+        no_activities = len(coordinates)
+
+        if no_activities <= 1:
+            continue
+        elif no_activities >= 2:
+            a = random.randint(0, no_activities - 1)
+            b = random.randint(0, no_activities - 1)
+            # we need unique numbers.
+            while a == b:
+                b = random.randint(0, no_activities - 1)
+
+        # coordinates is a list of (day, timeslot, index) objects. We choose the
+        # a-th and b-th elements therein and then index them by (1, 0, 2) respectively.
+        activity1 = table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]]
+        activity2 = table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]]
+        print activity1, activity2
+
+        room1 = activity1.
+        room2 = activity2.update_room
+        # print room1, room2
+
+
+        swap_room = room1
+
+
+        i += 1
+
+        # update activities.
+        activity1.update_room(room1)
+        activity2.update_room(room2)
+
+        # update table.
+        table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1
+        table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
+
+    # update schedule.
+    new_schedule = copy.deepcopy(schedule)  # otherwise we get pointer problems.
+    new_schedule = new_schedule.update_timetable(table)
+
+    return new_schedule      
         
         
         
