@@ -113,7 +113,7 @@ class Room():
     
 students = {}
 courses = {}
-rooms = {}
+room = {}
 
 
 
@@ -131,7 +131,7 @@ with open('rooms.CSV', 'rb') as csvfile:
         capacity = row[1]
         
         # create course object. 
-        rooms[row[0]] = Room(row[0], row[1])
+        room[row[0]] = Room(row[0], row[1])
 
         
         
