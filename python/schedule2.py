@@ -95,19 +95,19 @@ class Schedule():
     def plot(self):
         visualize(self.timetable)
 
-    def personal(student, visual=False):
-
-        
+    def personal(self, student, visual=False):
         personal_table = [[[] for x in range(5)] for y in range(5)]
-
+        
         for day in range(5):
             for timeslot in range(5):
                 for activity in self.timetable[timeslot][day]:
                     if student in activity.participants:
-                        personal_table.append(activity)
+                        personal_table[timeslot][day].append(activity)
 
         if visual:
-            self.visualize(personal_table)
+            visualize(personal_table)
+    
+        
         
 
     def __str__(self):
@@ -121,4 +121,4 @@ class Schedule():
                         print activity.name + " " + activity.ttype + " " + group
                     else:
                         print activity.name + " " + activity.ttype + " Group " + group
-        return ""
+        return "--"
