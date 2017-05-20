@@ -16,7 +16,6 @@ class Courses():
         self.registrants = registrants # a list containing students in an unknown format. 
         self.registrants = sorted(self.registrants) # is dit nodig of niet? hangt van format registrants af. 
         self.amount_registrants = len(self.registrants)
-    
         
     def __str__():
         return self.name
@@ -51,16 +50,11 @@ class Courses():
         self.per_student["tutorials"] = tutorials_per_student
         self.per_student["labs"] = labs_per_student
         self.per_student["lectures"] = self.components["lectures"][0]
-        self.per_student["all"] = tutorials_per_student + labs_per_student + self.components["lectures"][0]
 
         
         # math.ceil to ensure enough activities
-        tutorials_output = (int(math.ceil(tutorial_result)), tutorials_capacity)
-        labs_output = (int(math.ceil(labs_result)), labs_capacity)
-        self.components["tutorials"] = tutorials_output
-        self.components["labs"] = labs_output
-
-        self.no_groups = max([tutorials_output[0], labs_output[0]])
+        self.components["tutorials"] = (int(math.ceil(tutorial_result)), tutorials_capacity)
+        self.components["labs"] = (int(math.ceil(labs_result)), labs_capacity)
         
         
         
@@ -95,25 +89,34 @@ class Student():
     
     
     
+# <<<<<<< HEAD
+# class Rooms():
+#     def __init__(self, name, capacity):
+#         self.name = 3
+#         self.capacity = 3
+# =======
     
     
-class Room():
+    
+    
+    
+    
+class Rooms():
     def __init__(self, name, capacity):
         self.name = name
         self.capacity = capacity
-
-    def __str__(self):
-        return self.name + " capacity: " + str(self.capacity)
-        
+    
     def get_name(self):
         return self.name
     def get_capacity(self):
         return self.capacity
+        
+# >>>>>>> d8faaf4213a054ccc95ac81d4f5ce752b2a6bd4d
 
     
 students = {}
 courses = {}
-room = {}
+rooms = {}
 
 
 
@@ -131,7 +134,7 @@ with open('rooms.CSV', 'rb') as csvfile:
         capacity = row[1]
         
         # create course object. 
-        room[row[0]] = Room(row[0], row[1])
+        rooms[row[0]] = Rooms(row[0], row[1])
 
         
         
