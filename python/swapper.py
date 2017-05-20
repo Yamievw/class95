@@ -113,6 +113,7 @@ def swap_room(schedule, no_swaps=1):
     schedule_roadmap = roadmap(schedule, False)
     activities = schedule_roadmap.keys()
 
+
     # define the number of swaps
     i = 0
     while i < no_swaps:
@@ -136,16 +137,14 @@ def swap_room(schedule, no_swaps=1):
         activity2 = table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]]
         print activity1, activity2
 
-        room1 = activity1.get_room()
-        room2 = activity2.get_room()
-        # print room1, room2
-
+        room1 = activity1.room
+        room2 = activity2.room
 
         swap_room = room1
-        capacity = room1.capacity (vraag capacity van room, waarschijnlijk moet je daarvoor eerst het kamernummer hebben of hoe we het hebben opgeslagen en dan iets.get_capacity())
+        capacity= room1.capacity
 
-        # check of het past      
-        if len(activity2.get_participants) <= capacity:
+        # check of het past
+        if len(activity2.participants) <= capacity:
             # make swap:
             activity1.update_room(room2)
             activity2.update_room(swap_room)
@@ -161,4 +160,6 @@ def swap_room(schedule, no_swaps=1):
     new_schedule = copy.deepcopy(schedule)  # otherwise we get pointer problems.
     new_schedule = new_schedule.update_timetable(table)
 
-    return new_schedule      
+    return new_schedule
+
+   
