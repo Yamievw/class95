@@ -105,13 +105,12 @@ def swap_student(schedule, no_swaps=1):
     return new_schedule
 
   
-# NOG NIET AF
+# Swap roooms
 def swap_rooms(schedule, no_swaps=1):
     table = copy.deepcopy(schedule.get_timetable())
 
     day = random.randint(0,4)
     timeslot = random.randint(0,4)
-    # count = len(table[timeslot][day])
 
     count = 0
     for activity in table[timeslot][day]:
@@ -132,8 +131,8 @@ def swap_rooms(schedule, no_swaps=1):
     room2 = activity2.room
     
     # TESTEN
-    # print "ben r1,1", activity1.room.get_name(), room1
-    # print "ben r2,1", activity2.room.get_name(), room2
+    print "ben r1,1", activity1.room.get_name(), room1
+    print "ben r2,1", activity2.room.get_name(), room2
 
     swap_room = room1
 
@@ -146,8 +145,8 @@ def swap_rooms(schedule, no_swaps=1):
     table[timeslot][day][j] = activity2
 
     # TESTEN
-    # print "ik ben r1 na swap", activity1.room, activity1.room.get_name()
-    # print "ik ben r2 na swap", activity2.room, activity2.room.get_name()
+    print "ik ben r1 na swap", activity1.room, activity1.room.get_name()
+    print "ik ben r2 na swap", activity2.room, activity2.room.get_name()
 
     # update i
     i += 1

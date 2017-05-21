@@ -31,10 +31,9 @@ def random_table():
                 name = course.get_name()
                 ttype = key
                 capacity = components[key][1]
-                room = 1
                 if key == "lectures":
                     group_id = 0                
-                activity = Activity(name, ttype, capacity, group_id, room)
+                activity = Activity(name, ttype, capacity, group_id)
                 if key == "lectures":
                     activity.update_participants(registrants)
                 else:
@@ -54,15 +53,15 @@ def random_table():
                     j = random.randint(0,4)
                 test.add_activity(i, j, activity)
 
-        timetable = test.get_timetable()
-        for day in range(5):
-            for timeslot in range(5):
-                taken_rooms = []
-                for activity in timetable[timeslot][day]:
-                    while i in taken_rooms:
-                        i = random.randint(0,6)
-                    taken_rooms.append(i)
-                    activity.update_room(rooms_test[i])      
+    timetable = test.get_timetable()
+    for day in range(5):
+        for timeslot in range(5):
+            taken_rooms = []
+            for activity in timetable[timeslot][day]:
+                while i in taken_rooms:
+                    i = random.randint(0,6)
+                taken_rooms.append(i)
+                activity.update_room(rooms_test[i])      
 
     return test
 

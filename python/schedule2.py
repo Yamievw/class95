@@ -3,7 +3,6 @@
 from read_data import *
 from rate_timetable import *
 import numpy as np
-from visualize import visualize
 
 class Activity():
     # a two hour timeslot with a name, participants and a
@@ -92,24 +91,6 @@ class Schedule():
         # get timetable's score. 
         return rate_timetable(self.timetable)
 
-    def plot(self):
-        visualize(self.timetable)
-
-    def personal(self, student, visual=False):
-        personal_table = [[[] for x in range(5)] for y in range(5)]
-        
-        for day in range(5):
-            for timeslot in range(5):
-                for activity in self.timetable[timeslot][day]:
-                    if student in activity.participants:
-                        personal_table[timeslot][day].append(activity)
-
-        if visual:
-            visualize(personal_table)
-    
-        
-        
-
     def __str__(self):
         for day in range(5):
             print "^^^^^^^^^" + self.day_dict[day] + "^^^^^^^^^^^"           
@@ -117,8 +98,9 @@ class Schedule():
                 print "------------"+ self.timeslot_dict[timeslot] + "----------"
                 for activity in self.timetable[timeslot][day]:
                     group = str(activity.group_id)
+                    room = str(activity.room.get_name())
                     if activity.ttype == "lectures":
-                        print activity.name + " " + activity.ttype + " " + group
+                        print activity.name + " " + activity.ttype + " " + group + " " + room
                     else:
-                        print activity.name + " " + activity.ttype + " Group " + group
+                        print activity.name + " " + activity.ttype + " Group " + group + " " + room
         return "--"
