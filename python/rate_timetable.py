@@ -116,21 +116,30 @@ def check_conflict(timetable):
                  
     return -conflicts
 
+
 def check_room(timetable):
     """Checks if the number of students dont pass max capacity of a room"""
-    
-    roomm = 0
-    
-    for room in rooms.values():
-        capacity = room.get_capacity()
+
+    score_sum = 0
 
     for day in range(5):
         for timeslot in range(5):
             for activity in timetable[timeslot][day]:
-                if len(activity.participants) > capacity:
-                    roomm = (capacity-(len(activity.participants))) #punt per student
-                    
-    return roomm
+                current_room = activity.get_room().name
+                # print current_room
+
+                capacity = int(activity.get_room().capacity)
+                participantss = len(activity.participants)
+                # print capacity, participantss
+
+                if participantss > capacity:
+                    # print participantss, capacity
+                    roomm = participantss - capacity #punt per student
+                    print "Score:", roomm
+                    score_sum += roomm
+                    print "Score_sum:", score_sum
+
+    return -score_sum
 
 def check_evening(timetable):
     score_evening = 0
