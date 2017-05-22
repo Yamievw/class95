@@ -18,7 +18,8 @@ print "Prepare for some awesome hill climbing!!!"
 print " "
 
 N = 1
-iterations = 10000
+iterations = 1000
+subdivision = 100
 
 
 path = os.getcwd()
@@ -32,6 +33,53 @@ path += time
 path += "\\"
 
 
+def HC_activities(schedule, begin, end):
+    iterations_list = []
+    scores_list = []
+    for i in range(begin, end):
+        schedule = hill_climber_activities(schedule, 1)
+        iterations_list.append(i)
+        scores_list.append(schedule.score())
+
+    if begin < (3*subdivision):
+        plt.plot(iterations_list, scores_list, label="Activities", color="b")
+    else:
+        plt.plot(iterations_list, scores_list, color="b")
+
+    return schedule
+
+def HC_students(schedule, begin, end):
+    iterations_list = []
+    scores_list = []
+    for i in range(begin, end):       
+        schedule = hill_climber_students(schedule)
+        iterations_list.append(i)
+        scores_list.append(schedule.score())
+
+    if begin < (3*subdivision):
+        plt.plot(iterations_list, scores_list, label="Students", color="g")
+    else:
+        plt.plot(iterations_list, scores_list, color="g")
+        
+
+    return schedule
+
+def HC_rooms(schedule, begin, end):
+    iterations_list = []
+    scores_list = []
+    for i in range(begin ,end):        
+        schedule = hill_climber_rooms(schedule)
+        iterations_list.append(i)
+        scores_list.append(schedule.score())
+
+
+    if begin < (3*subdivision):
+        plt.plot(iterations_list, scores_list, label="Rooms", color="r")
+    else:
+        plt.plot(iterations_list, scores_list, color="r")
+
+    
+    return schedule
 
 for n in range(N):
     # set up schedule and figure
@@ -43,43 +91,22 @@ for n in range(N):
     
 
     # set up plotting lists. 
-    iterations_list = []
-    scores_list = []
-
-    scores_list.append(schedule.score())
-    iterations_list.append(0)
     
-    print "blocks"
-    for i in range(1, iterations):
-        schedule = hill_climber_activities(schedule, 1)
-        iterations_list.append(i)
-        scores_list.append(schedule.score())
-
-    plt.plot(iterations_list, scores_list, label="Activities")
-    iterations_list = []
-    scores_list = []
-
-    print "students"
-    for i in range(iterations, 2*iterations):       
-        schedule = hill_climber_students(schedule)
-        iterations_list.append(i)
-        scores_list.append(schedule.score())
 
 
-    plt.plot(iterations_list, scores_list, label="Students")
-    iterations_list = []
-    scores_list = []
 
-    print "rooms"
-    for i in range(2*iterations , 3*iterations):        
-        schedule = hill_climber_rooms(schedule)
-        iterations_list.append(i)
-        scores_list.append(schedule.score())
+    for j in range(iterations/(subdivision)):
+        begin = j*subdivision + 1
+        end = (j+1)*subdivision
 
-
-    plt.plot(iterations_list, scores_list, label="Rooms")
-
-
+        if j%3 == 0:
+            schedule = HC_activities(schedule, begin,end)            
+        elif (j-1)%3 == 0:
+            schedule = HC_students(schedule, begin, end)
+        else:
+            schedule = HC_rooms(schedule, begin, end)
+        
+        
     plt.legend()
     plt.xlabel("Iterations")
     plt.ylabel("Score")
@@ -99,3 +126,4 @@ for n in range(N):
     pickle.dump(schedule, filehandler)
 
     print " "
+
