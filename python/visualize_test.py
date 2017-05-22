@@ -1,9 +1,9 @@
-from random_table2 import *
+from random_table import *
 from hill_climber import *
 
 
 schedule = random_table()
-schedule.plot()
+#schedule.plot()
 #schedule.personal("59289233", True)
 
 

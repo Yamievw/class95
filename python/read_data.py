@@ -50,13 +50,15 @@ class Courses():
         self.per_student["tutorials"] = tutorials_per_student
         self.per_student["labs"] = labs_per_student
         self.per_student["lectures"] = self.components["lectures"][0]
+        self.per_student["all"] = tutorials_per_student + labs_per_student + self.components["lectures"][0]
 
         
         # math.ceil to ensure enough activities
         self.components["tutorials"] = (int(math.ceil(tutorial_result)), tutorials_capacity)
         self.components["labs"] = (int(math.ceil(labs_result)), labs_capacity)
         
-        
+
+        self.no_groups = max(self.components["tutorials"][0], self.components["labs"][0])
         
         
         
