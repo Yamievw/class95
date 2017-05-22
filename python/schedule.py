@@ -92,9 +92,16 @@ class Schedule():
         if visual:
             visualize(personal_table)
         return personal_table
-        
-    
 
+    def plot_course(self, course_name):
+        course_table = [[[] for x in range(5)] for y in range(5)]
+
+        for day in range(5):
+            for timeslot in range(5):
+                for activity in self.timetable[timeslot][day]:
+                    if course_name == activity.name:
+                        course_table[timeslot][day].append(activity)
+        visualize(course_table)
 
     def evening_full(self, day):
         """ check if evening timeslot is taken """

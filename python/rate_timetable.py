@@ -130,14 +130,14 @@ def check_room(timetable):
 
                 capacity = int(activity.get_room().capacity)
                 participantss = len(activity.participants)
-                # print capacity, participantss
+                #print capacity, participantss
 
                 if participantss > capacity:
                     # print participantss, capacity
                     roomm = participantss - capacity #punt per student
-                    print "Score:", roomm
+                    #print "Score:", roomm
                     score_sum += roomm
-                    print "Score_sum:", score_sum
+                    #print "Score_sum:", score_sum
 
     return -score_sum
 

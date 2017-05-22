@@ -14,7 +14,7 @@ def hill_climber_activities(schedule, iterations=1):
 
         new_score = new_schedule.score()
        
-        if new_score > score:
+        if new_score >= score:
             score = new_score
             schedule = new_schedule
         else:
@@ -29,7 +29,7 @@ def hill_climber_students(schedule, iterations=1):
         new_schedule = swap_student(schedule)
         new_score = new_schedule.score()
 
-        if new_score > score:
+        if new_score >= score:
             score = new_score
             schedule = new_schedule
         else:
@@ -44,7 +44,7 @@ def hill_climber_rooms(schedule, iterations=1):
         new_schedule = swap_rooms(schedule)
         new_score = new_schedule.score()
 
-        if new_score > score:
+        if new_score >= score:
             score = new_score
             schedule = new_schedule
         else:
