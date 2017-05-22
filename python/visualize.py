@@ -12,7 +12,7 @@ def visualize(table, room=False):
         pass 
     output = PrettyTable()
 
-    days = [" ", "Monday            ", "Tuesday             ", "Wednesday           ", "Thursday            ", "Friday          "]
+    days = [" ", "Monday                  ", "Tuesday                 ", "Wednesday                ", "Thursday                     ", "Friday                "]
     slots = ["9:00 - 11:00", "11:00 - 13:00", "13:00 - 15:00", "15:00 - 17:00", "17:00 - 19:00"]
 
     output.field_names = days
@@ -24,7 +24,7 @@ def visualize(table, room=False):
                 tmp.append(slots[timeslot])
             else:
                 for activity in table[timeslot][day-1]:
-                    tmp_str += activity.name + " (" + activity.ttype + " " + activity.room.name + ") "
+                    tmp_str += activity.name + " (" + activity.ttype + " " + str(activity.group_id) + " - " + activity.room.name + ") "
                     if room:
                         tmp_str += activity.room
                     tmp_str += "\n"
