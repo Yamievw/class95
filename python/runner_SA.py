@@ -4,8 +4,8 @@ import random
 from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
-from tqdm import tqdm
 import os
+import progressbar as pb
 
 from simulated_annealing import *
 from random_table import random_table
@@ -47,9 +47,18 @@ for n in range(N):
     plt.figure(n)
 
     print "n = ", n + 1, "/", N, "performing", iterations, "iterations"
+
+    #initialize widgets
+    widgets = ['Simulated Annealing: ', pb.Percentage(), ' ',  
+            pb.Bar(marker=pb.RotatingMarker()), ' ', pb.ETA()]
+    #initialize timer
+    timer = pb.ProgressBar(widgets=widgets, maxval=iterations).start()
+
+
     
     
-    for j in tqdm(range(iterations/subdivision)):
+    for j in range(iterations/subdivision):
+        
         begin = j*subdivision 
         end = (j+1)*subdivision
 
@@ -60,6 +69,7 @@ for n in range(N):
             scores_list = []
             temperatures_list = []
             for i in range(begin, end):
+                timer.update(i)
                 schedule = SA_activities(schedule, cooling_schedule, T)
                 T = cool(cooling_schedule, T0, Tn, iterations, i)
                 
@@ -90,7 +100,8 @@ for n in range(N):
             scores_list = []
             temperatures_list = []
             
-            for i in range(begin, end):       
+            for i in range(begin, end):
+                timer.update(i)
                 schedule = SA_students(schedule, cooling_schedule, T)
                 T = cool(cooling_schedule, T0, Tn, iterations, i)
 
@@ -113,7 +124,8 @@ for n in range(N):
             iterations_list = []
             scores_list = []
             temperatures_list = []
-            for i in range(begin, end):        
+            for i in range(begin, end):
+                timer.update(i)
                 schedule = SA_students(schedule, cooling_schedule, T)
                 T = cool(cooling_schedule, T0, Tn, iterations, i)
                 
@@ -147,3 +159,5 @@ for n in range(N):
     pickle.dump(schedule, filehandler)
 
     print " "
+
+timer.finish()

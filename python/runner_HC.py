@@ -5,7 +5,6 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from tqdm import tqdm
 
 from hill_climber import *
 from random_table import random_table
@@ -33,11 +32,17 @@ time = time.replace(":", " ")
 path += time
 path += "\\"
 
+#import libraries
+import progressbar as pb
+
+
+
 
 def HC_activities(schedule, begin, end):
     iterations_list = []
     scores_list = []
     for i in range(begin, end):
+        timer.update(i)
         schedule = hill_climber_activities(schedule, 1)
         iterations_list.append(i)
         scores_list.append(schedule.score())
@@ -52,7 +57,8 @@ def HC_activities(schedule, begin, end):
 def HC_students(schedule, begin, end):
     iterations_list = []
     scores_list = []
-    for i in range(begin, end):       
+    for i in range(begin, end):
+        timer.update(i)
         schedule = hill_climber_students(schedule)
         iterations_list.append(i)
         scores_list.append(schedule.score())
@@ -68,7 +74,8 @@ def HC_students(schedule, begin, end):
 def HC_rooms(schedule, begin, end):
     iterations_list = []
     scores_list = []
-    for i in range(begin ,end):        
+    for i in range(begin ,end):
+        timer.update(i)
         schedule = hill_climber_rooms(schedule)
         iterations_list.append(i)
         scores_list.append(schedule.score())
@@ -91,12 +98,19 @@ for n in range(N):
     
     
 
-    # set up plotting lists. 
-    
+    #initialize widgets
+    widgets = ['Hill Climber: ', pb.Percentage(), ' ',  
+            pb.Bar(marker=pb.RotatingMarker()), ' ', pb.ETA()]
+    #initialize timer
+    timer = pb.ProgressBar(widgets=widgets, maxval=iterations).start()
+
+            
 
 
 
-    for j in tqdm(range(iterations/(subdivision))):
+    for j in range(iterations/(subdivision)):
+        timer.update(j)
+ 
         begin = j*subdivision + 1
         end = (j+1)*subdivision
 
@@ -127,4 +141,5 @@ for n in range(N):
     pickle.dump(schedule, filehandler)
 
     print " "
+timer.finish()
 
