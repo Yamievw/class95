@@ -57,11 +57,15 @@ def random_table():
     for day in range(5):
         for timeslot in range(5):
             taken_rooms = []
-            for activity in timetable[timeslot][day]:
-                while i in taken_rooms:
-                    i = random.randint(0,6)
-                taken_rooms.append(i)
-                activity.update_room(rooms_test[i])      
+            if timeslot == 4:
+                evening_activity = timetable[4][day][0]
+                evening_activity.update_room(rooms["C0.110"])
+            else:
+                for activity in timetable[timeslot][day]:
+                    while i in taken_rooms:
+                        i = random.randint(0,6)
+                    taken_rooms.append(i)
+                    activity.update_room(rooms_test[i])      
 
     return test
 
