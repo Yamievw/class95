@@ -126,20 +126,16 @@ def check_room(timetable):
         for timeslot in range(5):
             for activity in timetable[timeslot][day]:
                 current_room = activity.get_room().name
-                # print current_room
 
                 capacity = int(activity.get_room().capacity)
                 participantss = len(activity.participants)
-                # print capacity, participantss
 
                 if participantss > capacity:
-                    # print participantss, capacity
-                    roomm = participantss - capacity #punt per student
-                    print "Score:", roomm
-                    score_sum += roomm
-                    print "Score_sum:", score_sum
+                    score = participantss - capacity #punt per student
+                    score_sum += score
 
     return -score_sum
+
 
 def check_evening(timetable):
     score_evening = 0
