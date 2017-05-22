@@ -1,7 +1,7 @@
 # creates a randomized timetable, with students.
 
 from read_data import *
-from schedule2 import *
+from schedule import *
 import math
 import random
 # from roadmap import roadmap

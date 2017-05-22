@@ -102,6 +102,16 @@ class Schedule():
     def slot_full(self, day, timeslot):
         """ check if timeslot is full """
         return len(self.timetable[timeslot][day]) == 7
+    def free_rooms(self, day, timeslot):
+        """ returns a list of names of free rooms """
+        if timeslot == 4:
+            if not self.evening_full(day):
+                return ["C0.110"]
+
+        room_checklist = rooms.keys()
+        for activity in self.timetable[timeslot][day]:
+            room_checklist.remove(activity.room.name)
+        return room_checklist
 
     def add_activity(self, day, timeslot, activity):
         self.timetable[timeslot][day].append(activity)

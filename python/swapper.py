@@ -1,30 +1,43 @@
 import copy # for schedule class.
 import random # for the random selection.
 from roadmap import roadmap
+from read_data import *
 
 
 def swap_activity(schedule):
     """ this function moves an activity from one place to the other """
     table = copy.deepcopy(schedule.get_timetable())
-    
-    day1 = random.randint(0, 4)
-    timeslot1 = random.randint(0, 4) # wel 17:00-19:00.
-    count1 = len(table[timeslot1][day1])
-    try:
-        activity1 = random.randint(0, count1 - 1)
-    except:
-        activity1 = None
+
+
+    activity1 = None
+
+    while activity1 == None:
+        day1 = random.randint(0,4)
+        timeslot1 = random.randint(0, 4) # wel 17:00-19:00.
+        count1 = len(table[timeslot1][day1])
+
+        if count1 == 0:
+            continue
+        else:
+            index1 = random.randint(0, count1 - 1)
+            activity1 = table[timeslot1][day1][index1]
+
 
     # swap value 2
     day2 = random.randint(0, 4)
     timeslot2 = random.randint(0, 4) # wel 17:00-19:00. 
+
   
-    
-    if activity1 != None:
-        table[timeslot2][day2].append(table[timeslot1][day1][activity1])
-        del table[timeslot1][day1][activity1]
-    else:
-        return schedule
+    while schedule.slot_full(day2, timeslot2) or (timeslot2 == 4 and schedule.evening_full(day2)):
+        day2 = random.randint(0, 4)
+        timeslot2 = random.randint(0, 4)
+   
+    free_room_name = schedule.free_rooms(day2, timeslot2)[0]
+
+    activity1.update_room(rooms[free_room_name])
+
+    del table[timeslot1][day1][index1]
+    table[timeslot2][day2].append(activity1)
 
     new_schedule = copy.deepcopy(schedule) # otherwise we get pointer problems.
     new_schedule = new_schedule.update_timetable(table)
