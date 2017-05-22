@@ -141,5 +141,5 @@ for n in range(N):
     pickle.dump(schedule, filehandler)
 
     print " "
-timer.finish()
+    timer.finish()
 

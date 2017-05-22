@@ -160,4 +160,4 @@ for n in range(N):
 
     print " "
 
-timer.finish()
+    timer.finish()
