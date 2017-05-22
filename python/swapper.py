@@ -105,56 +105,51 @@ def swap_student(schedule, no_swaps=1):
     return new_schedule
 
   
-# NOG NIET AF
-def swap_room(schedule, no_swaps=1):
-    """ this function moves a specified number of rooms from one
-             activity to an activity of same type and name """
+# Swap roooms
+def swap_rooms(schedule, no_swaps=1):
     table = copy.deepcopy(schedule.get_timetable())
-    schedule_roadmap = roadmap(schedule, False)
-    activities = schedule_roadmap.keys()
 
+    day = random.randint(0,4)
+    timeslot = random.randint(0,4)
 
-    # define the number of swaps
-    i = 0
-    while i < no_swaps:
-        n = random.randint(0, len(activities) - 1)
-        coordinates = schedule_roadmap[activities[n]]
+    count = 0
+    for activity in table[timeslot][day]:
+        count += 1
 
-        no_activities = len(coordinates)
+    i = random.randint(0, count - 1)
+    j = random.randint(0, count - 1)
+    while j == i:
+        j = random.randint(0, count - 1)
 
-        if no_activities <= 1:
-            continue
-        elif no_activities >= 2:
-            a = random.randint(0, no_activities - 1)
-            b = random.randint(0, no_activities - 1)
-            # we need unique numbers.
-            while a == b:
-                b = random.randint(0, no_activities - 1)
+    # coordinates is a list of (day, timeslot, index) objects. We choose the
+    # a-th and b-th elements therein and then index them by (1, 0, 2) respectively.
+    activity1 = table[timeslot][day][i]
+    activity2 = table[timeslot][day][j]
+    print activity1, activity2
 
-        # coordinates is a list of (day, timeslot, index) objects. We choose the
-        # a-th and b-th elements therein and then index them by (1, 0, 2) respectively.
-        activity1 = table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]]
-        activity2 = table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]]
-        print activity1, activity2
+    room1 = activity1.room
+    room2 = activity2.room
+    
+    # TESTEN
+    print "ben r1,1", activity1.room.get_name(), room1
+    print "ben r2,1", activity2.room.get_name(), room2
 
-        room1 = activity1.room
-        room2 = activity2.room
+    swap_room = room1
 
-        swap_room = room1
-        capacity= room1.capacity
+    # make swap:
+    activity1.update_room(room2)
+    activity2.update_room(swap_room)
 
-        # check of het past
-        if len(activity2.participants) <= capacity:
-            # make swap:
-            activity1.update_room(room2)
-            activity2.update_room(swap_room)
+    # update table:
+    table[timeslot][day][i] = activity1
+    table[timeslot][day][j] = activity2
 
-            # update table:
-            table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1
-            table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
+    # TESTEN
+    print "ik ben r1 na swap", activity1.room, activity1.room.get_name()
+    print "ik ben r2 na swap", activity2.room, activity2.room.get_name()
 
-            # update i
-            i += 1
+    # update i
+    i += 1
 
     # update schedule.
     new_schedule = copy.deepcopy(schedule)  # otherwise we get pointer problems.
@@ -162,4 +157,76 @@ def swap_room(schedule, no_swaps=1):
 
     return new_schedule
 
-   
+
+
+# OUDDDDDDDDDD
+
+# def swap_room(schedule, no_swaps=1):
+#     """ this function moves a specified number of rooms from one
+#              activity to an activity of same type and name """
+#     table = copy.deepcopy(schedule.get_timetable())
+#     schedule_roadmap = roadmap(schedule)
+#     # schedule_roadmap geeft coordinaten van alle activiteiten
+#     # print "ben schedule", schedule_roadmap
+#     # activities zijn nu alle tutorials en labs
+#     activities = schedule_roadmap.keys()
+#     # geeft keys uit roadmap => lectures, labs, tutorials
+#     # print "ben acti", activities
+
+
+#     # define the number of swaps
+#     i = 0
+#     while i < no_swaps:
+#         n = random.randint(0, len(activities) - 1)
+#         coordinates = schedule_roadmap[activities[n]]
+#         print "ben co", coordinates
+
+#         no_activities = 
+#         # voor no activities willen we het aantal activiteiten in tijdslot 
+#         print no_activities
+
+#         if no_activities <= 1:
+#             continue
+#         elif no_activities >= 2:
+#             a = random.randint(0, no_activities - 1)
+#             b = random.randint(0, no_activities - 1)
+#             # we need unique numbers.
+#             while a == b:
+#                 b = random.randint(0, no_activities - 1)
+
+#         # coordinates is a list of (day, timeslot, index) objects. We choose the
+#         # a-th and b-th elements therein and then index them by (1, 0, 2) respectively.
+#         activity1 = table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]]
+#         activity2 = table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]]
+#         print activity1, activity2
+
+#         room1 = activity1.room
+#         print "ben r1,1", activity1.room.get_name(), room1
+#         room2 = activity2.room
+#         print "ben r2,1", activity2.room.get_name(), room2
+
+#         swap_room = room1
+#         print "ik ben swap_room",swap_room
+#         capacity= room1.get_capacity()
+
+#         # check of het past
+#         # hoeft niet per se => geen hard constraint
+#         if len(activity2.participants) <= capacity:
+#             # make swap:
+#             activity1.update_room(room2)
+#             print "ik ben r1 na swap", activity1.room, activity1.room.get_name
+#             activity2.update_room(swap_room)
+#             print "ik ben r2 na swap", activity2.room, activity2.room.get_name
+
+#             # update table:
+#             table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1
+#             table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
+
+#             # update i
+#             i += 1
+
+#     # update schedule.
+#     new_schedule = copy.deepcopy(schedule)  # otherwise we get pointer problems.
+#     new_schedule = new_schedule.update_timetable(table)
+
+#     return new_schedule
