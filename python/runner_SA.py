@@ -4,6 +4,7 @@ import random
 from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
+from tqdm import tqdm
 import os
 
 from simulated_annealing import *
@@ -21,10 +22,10 @@ print " "
 
 N = 1
 iterations = 10000
-subdivision = 100
+subdivision = 1000
 
 cooling_schedule = "expN"
-T0 = 100
+T0 = 50
 T = T0
 
 
@@ -48,7 +49,7 @@ for n in range(N):
     print "n = ", n + 1, "/", N, "performing", iterations, "iterations"
     
     
-    for j in range(iterations/subdivision):
+    for j in tqdm(range(iterations/subdivision)):
         begin = j*subdivision 
         end = (j+1)*subdivision
 

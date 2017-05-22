@@ -5,6 +5,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+from tqdm import tqdm
 
 from hill_climber import *
 from random_table import random_table
@@ -18,7 +19,7 @@ print "Prepare for some awesome hill climbing!!!"
 print " "
 
 N = 1
-iterations = 1000
+iterations = 2000
 subdivision = 100
 
 
@@ -95,7 +96,7 @@ for n in range(N):
 
 
 
-    for j in range(iterations/(subdivision)):
+    for j in tqdm(range(iterations/(subdivision))):
         begin = j*subdivision + 1
         end = (j+1)*subdivision
 

@@ -58,13 +58,7 @@ def SA_students(schedule, cooling, T0, iterations=1):
         
         new_schedule = swap_student(schedule)
 
-        new_score = new_schedule.score()
-
-        if new_score == 0:
-            print "we have encountered a terrible error"
-            return 1
-
-        
+        new_score = new_schedule.score()       
 
         compare = random.uniform(0, 1)
 
