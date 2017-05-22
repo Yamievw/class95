@@ -1,8 +1,8 @@
 # creates a datastructure for the schedule
+import numpy as np
 
 from read_data import *
 from rate_timetable import *
-import numpy as np
 from visualize import *
 
 class Activity():
