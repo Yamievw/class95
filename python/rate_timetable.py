@@ -128,9 +128,9 @@ def check_room(timetable):
         for timeslot in range(5):
             for activity in timetable[timeslot][day]:
                 if len(activity.participants) > capacity:
-                    roomm += 1
+                    roomm = (capacity-(len(activity.participants))) #punt per student
                     
-    return -roomm
+    return roomm
 
 def check_evening(timetable):
     score_evening = 0
