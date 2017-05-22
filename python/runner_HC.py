@@ -17,9 +17,9 @@ print "1..."
 print "Prepare for some awesome hill climbing!!!"
 print " "
 
-N = 1
-iterations = 2000
-subdivision = 100
+N = 10
+iterations = 50000
+subdivision = 1000
 
 
 path = os.getcwd()
