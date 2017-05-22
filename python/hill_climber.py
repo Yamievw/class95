@@ -1,4 +1,3 @@
-from read_data import *
 from schedule import *
 from random_table import *
 from swapper import *

@@ -124,28 +124,30 @@ def swap_rooms(schedule, no_swaps=1):
 
     day = random.randint(0,4)
     timeslot = random.randint(0,4)
-
-    count = 0
-    for activity in table[timeslot][day]:
-        count += 1
-
+    count = len(table[timeslot][day])
+    while count < 2:
+        day = random.randint(0,4)
+        timeslot = random.randint(0,4)
+        count = len(table[timeslot][day])
+        
+    
     i = random.randint(0, count - 1)
     j = random.randint(0, count - 1)
     while j == i:
         j = random.randint(0, count - 1)
-
+    
     # coordinates is a list of (day, timeslot, index) objects. We choose the
     # a-th and b-th elements therein and then index them by (1, 0, 2) respectively.
     activity1 = table[timeslot][day][i]
     activity2 = table[timeslot][day][j]
-    print activity1, activity2
+    #print activity1, activity2
 
     room1 = activity1.room
     room2 = activity2.room
     
     # TESTEN
-    print "ben r1,1", activity1.room.get_name(), room1
-    print "ben r2,1", activity2.room.get_name(), room2
+    #print "ben r1,1", activity1.room.get_name(), room1
+    #print "ben r2,1", activity2.room.get_name(), room2
 
     swap_room = room1
 
@@ -158,8 +160,8 @@ def swap_rooms(schedule, no_swaps=1):
     table[timeslot][day][j] = activity2
 
     # TESTEN
-    print "ik ben r1 na swap", activity1.room, activity1.room.get_name()
-    print "ik ben r2 na swap", activity2.room, activity2.room.get_name()
+    #print "ik ben r1 na swap", activity1.room, activity1.room.get_name()
+    #print "ik ben r2 na swap", activity2.room, activity2.room.get_name()
 
     # update i
     i += 1

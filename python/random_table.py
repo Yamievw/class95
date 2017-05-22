@@ -57,7 +57,7 @@ def random_table():
     for day in range(5):
         for timeslot in range(5):
             taken_rooms = []
-            if timeslot == 4:
+            if (timeslot == 4) and (timetable[4][day] != []):
                 evening_activity = timetable[4][day][0]
                 evening_activity.update_room(rooms["C0.110"])
             else:
