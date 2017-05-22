@@ -21,6 +21,8 @@ print " "
 
 N = 1
 iterations = 10000
+subdivision = 100
+
 cooling_schedule = "expN"
 T0 = 100
 T = T0
@@ -46,82 +48,90 @@ for n in range(N):
     print "n = ", n + 1, "/", N, "performing", iterations, "iterations"
     
     
+    for j in range(iterations/subdivision):
+        begin = j*subdivision 
+        end = (j+1)*subdivision
 
-    # set up plotting lists. 
-    iterations_list = []
-    scores_list = []
-    temperatures_list = [T0]
+        
 
-    scores_list.append(schedule.score())
-    iterations_list.append(0)
+        if j%3==0:
+            iterations_list = []
+            scores_list = []
+            temperatures_list = []
+            for i in range(begin, end):
+                schedule = SA_activities(schedule, cooling_schedule, T)
+                T = cool(cooling_schedule, T0, Tn, iterations, i)
+                
+                iterations_list.append(i)
+                scores_list.append(schedule.score())
+                temperatures_list.append(T)
+
+            plt.subplot(211)
+            if begin < (subdivision*3):
+                plt.plot(iterations_list, scores_list, label="Activities", color="b")
+                plt.xlabel("Iterations")
+                plt.ylabel("Score")
+                plt.title("Simulated Annealing")
+                
+                plt.subplot(212)
+                plt.xlabel("Iterations")
+                plt.ylabel("Temperature")
+            else:
+                plt.plot(iterations_list, scores_list, color="b")
+                plt.subplot(212)
+
+            plt.plot(iterations_list, temperatures_list, color="b")
+           
+
+
+        elif (j-1)%3==0:
+            iterations_list = []
+            scores_list = []
+            temperatures_list = []
+            
+            for i in range(begin, end):       
+                schedule = SA_students(schedule, cooling_schedule, T)
+                T = cool(cooling_schedule, T0, Tn, iterations, i)
+
+                iterations_list.append(i)
+                scores_list.append(schedule.score())
+                temperatures_list.append(T)
+
+
+            plt.subplot(211)
+            if begin < (subdivision*3):
+                plt.plot(iterations_list, scores_list, label="Students", color="g")
+            else:
+                plt.plot(iterations_list, scores_list, color="g")
+
+            plt.subplot(212)
+            plt.plot(iterations_list, temperatures_list, color="g")
+           
+
+        else:
+            iterations_list = []
+            scores_list = []
+            temperatures_list = []
+            for i in range(begin, end):        
+                schedule = SA_students(schedule, cooling_schedule, T)
+                T = cool(cooling_schedule, T0, Tn, iterations, i)
+                
+                iterations_list.append(i)
+                scores_list.append(schedule.score())
+                temperatures_list.append(T)
+
+
+            plt.subplot(211)
+            if begin < (subdivision*3):
+                plt.plot(iterations_list, scores_list, label="Rooms", color="r")
+                plt.legend()
+
+            else:
+                plt.plot(iterations_list, scores_list, color="r")
+            plt.subplot(212)
+            plt.plot(iterations_list, temperatures_list, color="r")
+            
     
-    print "blocks"
-    for i in range(1, iterations):
-        schedule = SA_activities(schedule, cooling_schedule, T)
-        T = cool(cooling_schedule, T0, Tn, iterations, i)
-
-        
-        iterations_list.append(i)
-        scores_list.append(schedule.score())
-        temperatures_list.append(T)
-
-    plt.subplot(211)
-    plt.plot(iterations_list, scores_list, label="Activities")
-    plt.subplot(212)
-    plt.plot(iterations_list, temperatures_list)
-    iterations_list = []
-    scores_list = []
-    temperatures_list = []
-    T = T0
-
-
-    print "students"
-    for i in range(iterations, 2*iterations):       
-        schedule = SA_students(schedule, cooling_schedule, T)
-        T = cool(cooling_schedule, T0, Tn, iterations, i-iterations)
-        
-        iterations_list.append(i)
-        scores_list.append(schedule.score())
-        temperatures_list.append(T)
-
-
-    plt.subplot(211)
-    plt.plot(iterations_list, scores_list, label="Students")
-    plt.subplot(212)
-    plt.plot(iterations_list, temperatures_list)
-    iterations_list = []
-    scores_list = []
-    temperatures_list = []
-    T = T0
-
-    print "rooms"
-    for i in range(2*iterations , 3*iterations):        
-        schedule = SA_students(schedule, cooling_schedule, T)
-        T = cool(cooling_schedule, T0, Tn, iterations, i-2*iterations)
-        
-        iterations_list.append(i)
-        scores_list.append(schedule.score())
-        temperatures_list.append(T)
-
-
-    plt.subplot(211)
-    plt.plot(iterations_list, scores_list, label="Rooms")
-    plt.legend()
-    plt.xlabel("Iterations")
-    plt.ylabel("Score")
-    plt.title("Simulated Annealing")
-    plt.subplot(212)
-    plt.xlabel("Iterations")
-    plt.ylabel("Temperature")
-    plt.plot(iterations_list, temperatures_list)
-    iterations_list = []
-    scores_list = []
-    temperatures_list = []
-    T = T0
-
-
-    
-
     plt.tight_layout()
     filename = path + str(n) + " score="
     score_string = str(schedule.score()).split(".")[0]
