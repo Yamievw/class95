@@ -2,12 +2,15 @@ import pickle
 import os
 from rate_timetable import *
 
-date = "2017-05-22"
-time = "16 59 16"
-filename = "0"
+ttype = "HC"
+date = "2017-05-23"
+time = "00 16 37"
+filename = "0 score=1270"
 
 dirname = os.getcwd()
 dirname += "\\Runs\\"
+dirname += ttype
+dirname += "\\
 dirname += date
 dirname += "\\"
 dirname += time
