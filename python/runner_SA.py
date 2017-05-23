@@ -20,7 +20,7 @@ print ""
 print "Prepare for some awesome annealing!!!"
 print " "
 
-N = 1
+N = 10
 iterations = 10000
 subdivision = 1000
 
@@ -158,6 +158,7 @@ for n in range(N):
     filehandler = open(filename, 'w') 
     pickle.dump(schedule, filehandler)
 
-    print " "
+    
 
     timer.finish()
+    print " "

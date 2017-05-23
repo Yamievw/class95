@@ -16,3 +16,5 @@ print a.get_value(), b.get_value()
 a.set_value(5)
 
 print a.get_value(), b.get_value()
+
+

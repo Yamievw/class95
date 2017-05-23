@@ -12,6 +12,8 @@ def random_table():
     test = Schedule()
     rooms_test = rooms.values()
 
+    
+
     for course in courses_test:
         components = course.get_components()
         registrants = course.get_registrants()
@@ -26,19 +28,26 @@ def random_table():
             n = components[key][0]
             groups = [registrants[i::n] for i in range(n)]
 
-            for i in range(n):
-                group_id = str(i + 1)
-                name = course.get_name()
-                ttype = key
-                capacity = components[key][1]
-                if key == "lectures":
-                    group_id = 0                
-                activity = Activity(name, ttype, capacity, group_id)
-                if key == "lectures":
-                    activity.update_participants(registrants)
-                else:
-                    activity.update_participants(groups[i])
-                activities.append(activity)
+            #
+            try:
+                group = dictionary[course_name + "_group" + str(n)]
+            except KeyError:
+             
+                newgroup = Group(group_id, participants)
+            #
+                for i in range(n):
+                    group_id = str(i + 1)
+                    name = course.get_name()
+                    ttype = key
+                    capacity = components[key][1]
+                    if key == "lectures":
+                        group_id = 0                
+                    activity = Activity(name, ttype, capacity, group_id)
+                    if key == "lectures":
+                        activity.update_participants(registrants)
+                    else:
+                        activity.update_participants(groups[i])
+                    activities.append(activity)
 
     for activity in activities:
         for i in range(units_per_student):
