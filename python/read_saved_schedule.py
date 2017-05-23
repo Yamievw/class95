@@ -10,7 +10,7 @@ filename = "0 score=1270"
 dirname = os.getcwd()
 dirname += "\\Runs\\"
 dirname += ttype
-dirname += "\\
+dirname += "\\"
 dirname += date
 dirname += "\\"
 dirname += time
@@ -26,4 +26,5 @@ print check_day(table)
 print check_conflict(table)
 print check_room(table)
 print check_bonus(table)
-schedule.plot()
+#schedule.plot()
+schedule.plot_course("Kansrekenen 2")
