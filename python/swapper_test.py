@@ -1,7 +1,9 @@
-from random_table2 import *
+from random_table import *
 from swapper import *
 
 schedule = random_table()
 # print schedule
-schedule = swap_rooms(schedule)
+for i in range(100):
+    schedule = swap_rooms(schedule)
 # print schedule
+

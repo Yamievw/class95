@@ -144,27 +144,39 @@ def swap_rooms(schedule, no_swaps=1):
 
     room1 = activity1.room
     room2 = activity2.room
-    
-    # TESTEN
-    #print "ben r1,1", activity1.room.get_name(), room1
-    #print "ben r2,1", activity2.room.get_name(), room2
 
-    swap_room = room1
 
-    # make swap:
-    activity1.update_room(room2)
-    activity2.update_room(swap_room)
+    free_rooms = schedule.free_rooms(day, timeslot)
+    new_room_chance = random.randint(0, 6)
 
-    # update table:
-    table[timeslot][day][i] = activity1
-    table[timeslot][day][j] = activity2
+    # either swap or take a new room, depending on how many rooms are still available.
+    # Choice is random chance. 
+    if new_room_chance > (6 - len(free_rooms)):
+        random_room = rooms[free_rooms[random.randint(0, len(free_rooms) -1)]]
+        activity1.update_room(random_room)
+        table[timeslot][day][i] = activity1
+        
 
-    # TESTEN
-    #print "ik ben r1 na swap", activity1.room, activity1.room.get_name()
-    #print "ik ben r2 na swap", activity2.room, activity2.room.get_name()
+    else:    
+        # TESTEN
+        #print "ben r1,1", activity1.room.get_name(), room1
+        #print "ben r2,1", activity2.room.get_name(), room2
+        
+        swap_room = room1
 
-    # update i
-    i += 1
+        # make swap:
+        activity1.update_room(room2)
+        activity2.update_room(swap_room)
+
+        # update table:
+        table[timeslot][day][i] = activity1
+        table[timeslot][day][j] = activity2
+
+        # TESTEN
+        #print "ik ben r1 na swap", activity1.room, activity1.room.get_name()
+        #print "ik ben r2 na swap", activity2.room, activity2.room.get_name()
+
+
 
     # update schedule.
     new_schedule = copy.deepcopy(schedule)  # otherwise we get pointer problems.
