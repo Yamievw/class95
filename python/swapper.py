@@ -87,19 +87,14 @@ def swap_student(schedule, no_swaps=1):
 
         swap_student = participants1[random.randint(0, len(participants1) - 1)]
 
-        
-        
         if swap_student not in participants2:
             # succesfull swap, yay!
             i += 1
         
-
             # move to new group and remove from old group.
             participants2.append(swap_student)
             participants1.remove(swap_student)
 
-        
-            
             # update activities.
             activity1.update_participants(participants1)
             activity2.update_participants(participants2)
@@ -107,14 +102,11 @@ def swap_student(schedule, no_swaps=1):
             # update table.
             table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1 
             table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
-
-        
-            
+       
     # update schedule.
     new_schedule = copy.deepcopy(schedule) # otherwise we get pointer problems.
     new_schedule = new_schedule.update_timetable(table)
 
-            
     return new_schedule
 
   

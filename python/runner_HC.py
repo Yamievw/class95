@@ -5,7 +5,6 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from tqdm import tqdm
 
 from hill_climber import *
 from random_table import random_table

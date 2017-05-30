@@ -102,8 +102,6 @@ def cross(survivors, N):
 
     return children
     
-    
-    
 def cross_block_student(schedule1, schedule2):
     """ crosses two schedules, keeping the first's block schedule and
         the second's student groups """
