@@ -1,7 +1,7 @@
 import copy # for schedule class.
 import random # for the random selection.
 from roadmap import roadmap
-from read_data import *
+from read_data3 import *
 
 
 def swap_activity(schedule):
@@ -73,12 +73,17 @@ def swap_student(schedule, no_swaps=1):
         activity1 = table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]]
         activity2 = table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]]
 
-        participants1 = activity1.participants
-        participants2 = activity2.participants
+        participants1 = activity1.group.participants
+        participants2 = activity2.group.participants
+
+        # TO TEST
+        # print "ben 1", len(participants1)
+        # print activity1.group.get_name()
+        # print "ben 2", len(participants2)
+        # print activity2.group.get_name()
 
         # HARD CONSTRAINT: maximum capacity of tutorial/lab.
         if len(participants1) == 1: # minimum occupancy
-            #print activity1, n
             #print "Minimum participants1"
             continue
         if len(participants2) >= activity2.capacity:
@@ -86,27 +91,40 @@ def swap_student(schedule, no_swaps=1):
             continue
 
         swap_student = participants1[random.randint(0, len(participants1) - 1)]
+        # print "ben swap", swap_student
 
+        
+        
         if swap_student not in participants2:
             # succesfull swap, yay!
             i += 1
         
+
             # move to new group and remove from old group.
             participants2.append(swap_student)
             participants1.remove(swap_student)
 
+        
+            
             # update activities.
             activity1.update_participants(participants1)
             activity2.update_participants(participants2)
 
+            # TO TEST
+            # print "as 1", activity1.participants, len(activity1.participants),activity1.group.participants, len(activity1.group.participants)
+            # print "as2 2", activity2.participants, len(activity2.participants), activity2.group.participants, len(activity2.group.participants)
+
             # update table.
             table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1 
             table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
-       
+
+        
+            
     # update schedule.
     new_schedule = copy.deepcopy(schedule) # otherwise we get pointer problems.
     new_schedule = new_schedule.update_timetable(table)
 
+            
     return new_schedule
 
   
@@ -175,77 +193,3 @@ def swap_rooms(schedule, no_swaps=1):
     new_schedule = new_schedule.update_timetable(table)
 
     return new_schedule
-
-
-
-# OUDDDDDDDDDD
-
-# def swap_room(schedule, no_swaps=1):
-#     """ this function moves a specified number of rooms from one
-#              activity to an activity of same type and name """
-#     table = copy.deepcopy(schedule.get_timetable())
-#     schedule_roadmap = roadmap(schedule)
-#     # schedule_roadmap geeft coordinaten van alle activiteiten
-#     # print "ben schedule", schedule_roadmap
-#     # activities zijn nu alle tutorials en labs
-#     activities = schedule_roadmap.keys()
-#     # geeft keys uit roadmap => lectures, labs, tutorials
-#     # print "ben acti", activities
-
-
-#     # define the number of swaps
-#     i = 0
-#     while i < no_swaps:
-#         n = random.randint(0, len(activities) - 1)
-#         coordinates = schedule_roadmap[activities[n]]
-#         print "ben co", coordinates
-
-#         no_activities = 
-#         # voor no activities willen we het aantal activiteiten in tijdslot 
-#         print no_activities
-
-#         if no_activities <= 1:
-#             continue
-#         elif no_activities >= 2:
-#             a = random.randint(0, no_activities - 1)
-#             b = random.randint(0, no_activities - 1)
-#             # we need unique numbers.
-#             while a == b:
-#                 b = random.randint(0, no_activities - 1)
-
-#         # coordinates is a list of (day, timeslot, index) objects. We choose the
-#         # a-th and b-th elements therein and then index them by (1, 0, 2) respectively.
-#         activity1 = table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]]
-#         activity2 = table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]]
-#         print activity1, activity2
-
-#         room1 = activity1.room
-#         print "ben r1,1", activity1.room.get_name(), room1
-#         room2 = activity2.room
-#         print "ben r2,1", activity2.room.get_name(), room2
-
-#         swap_room = room1
-#         print "ik ben swap_room",swap_room
-#         capacity= room1.get_capacity()
-
-#         # check of het past
-#         # hoeft niet per se => geen hard constraint
-#         if len(activity2.participants) <= capacity:
-#             # make swap:
-#             activity1.update_room(room2)
-#             print "ik ben r1 na swap", activity1.room, activity1.room.get_name
-#             activity2.update_room(swap_room)
-#             print "ik ben r2 na swap", activity2.room, activity2.room.get_name
-
-#             # update table:
-#             table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1
-#             table[coordinates[b][1]][coordinates[b][0]][coordinates[b][2]] = activity2
-
-#             # update i
-#             i += 1
-
-#     # update schedule.
-#     new_schedule = copy.deepcopy(schedule)  # otherwise we get pointer problems.
-#     new_schedule = new_schedule.update_timetable(table)
-
-#     return new_schedule

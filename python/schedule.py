@@ -9,9 +9,10 @@ class Activity():
     # a two hour timeslot with a name, participants and a
     # specific room.
     
-    def __init__(self, name, ttype, capacity, group_id=None, room=None, participants=[]):
+    def __init__(self, name, ttype, capacity,  group_id=None, group=None, room=None, participants=[]):
         self.name = name
         self.ttype = ttype
+        self.group = group
         self.group_id = group_id
         self.capacity = capacity
         self.room = room
@@ -29,9 +30,14 @@ class Activity():
         return self.participants
     def get_group_id(self):
         return self.group_id
+    def get_group(self):
+        return self.group
 
     def update_name(self, name):
         self.name = name
+
+    def update_group(self, group):
+        self.group = group
 
     def update_participants(self, participants):
         if type(participants) != type([]):
@@ -50,6 +56,24 @@ class Activity():
 
     def __str__(self):
         return str(self.name) + " " + str(self.ttype) + " " + str(self.group_id)
+
+class Group():
+    def __init__(self, name, participants):
+        self.name = name
+        self.participants = participants
+        # self.group_id = group_id
+
+    def get_name(self):
+        return self.name
+    # def get_group(self, group_id):
+    #     return self.group_id
+    def get_participants(self):
+        return self.participants
+    def update_participants(self, participants):
+        self.participants = participants
+
+# group = {}
+
 
 class Schedule():
     # a 5x5 matrix that represents the available timeslots

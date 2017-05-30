@@ -58,13 +58,7 @@ class Courses():
         self.components["labs"] = (int(math.ceil(labs_result)), labs_capacity)
         
 
-        self.no_groups = max(self.components["tutorials"][0], self.components["labs"][0])
-        
-        
-        
-                        
-        
-
+        self.no_groups = max(self.components["tutorials"][0], self.components["labs"][0], self.components["lectures"][0])
 
 class Student():
     def __init__(self, name, surname, number, courses):

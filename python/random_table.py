@@ -11,6 +11,7 @@ def random_table():
     activities = [] 
     test = Schedule()
     rooms_test = rooms.values()
+    groupies = []
 
     
 
@@ -21,35 +22,45 @@ def random_table():
         random.shuffle(registrants)
         course_name = course.get_name()
         available_rooms = []
-        
+
+        made_groups = False
 
         for key in components:
             units_per_student = courses[course_name].per_student[str(key)]
             n = components[key][0]
-            groups = [registrants[i::n] for i in range(n)]
+            if not made_groups and key != 'lectures' and n != 0:
+                # print "groups made"
+                groups = [Group(course_name + str(i+1), registrants[i::n]) for i in range(n)]
+                made_groups = True
+                # print "ben groups", groups, n, course_name, len(registrants)
 
-##            #
-##            try:
-##                group = dictionary[course_name + "_group" + str(n)]
-##            except KeyError:
-##             
-##                newgroup = Group(group_id, participants)
-##            #
+
             for i in range(n):
                 group_id = str(i + 1)
+                # print "ik ben group_id", group_id
                 name = course.get_name()
                 ttype = key
+                # print "ben ttype", ttype
                 capacity = components[key][1]
-                if key == "lectures":
-                    group_id = 0                
+                # participants = groups[i]           
                 activity = Activity(name, ttype, capacity, group_id)
                 if key == "lectures":
+                    group_id = 0 
                     activity.update_participants(registrants)
                 else:
-                    activity.update_participants(groups[i])
+                    activity.update_participants(groups[i].get_participants())
+                    activity.update_group(groups[i])
+                    # print "ben name", groups[i].name
                 activities.append(activity)
+                    
 
     for activity in activities:
+        # TO TEST:
+        # if activity.ttype != "lectures":
+        # print "ik ben:", activity.name, activity.ttype, activity.group.participants, activity.group_id, len(activity.participants)
+        # else:
+        # print "ik ben:", activity.name, activity.ttype, activity.group_id, len(activity.participants)
+
         for i in range(units_per_student):
             if units_per_student != 0:
                 i = random.randint(0, 4)
