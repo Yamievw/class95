@@ -1,5 +1,5 @@
 from random_table import *
-from swapper import *
+from swapper3 import *
 
 schedule = random_table()
 # print schedule

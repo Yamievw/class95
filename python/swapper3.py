@@ -77,8 +77,10 @@ def swap_student(schedule, no_swaps=1):
         participants2 = activity2.group.participants
 
         # TO TEST
-        # print "ben 1", len(participants1)
-        # print "ben 2", len(participants2)
+        print "ben 1", len(participants1)
+        print activity1.group.get_name()
+        print "ben 2", len(participants2)
+        print activity2.group.get_name()
 
         # HARD CONSTRAINT: maximum capacity of tutorial/lab.
         if len(participants1) == 1: # minimum occupancy
@@ -109,8 +111,8 @@ def swap_student(schedule, no_swaps=1):
             activity2.update_participants(participants2)
 
             # TO TEST
-            # print "as 1", len(activity1.participants), len(activity1.group.participants)
-            # print "as2 2", len(activity2.participants), len(activity2.group.participants)
+            print "as 1", activity1.participants, len(activity1.participants),activity1.group.participants, len(activity1.group.participants)
+            print "as2 2", activity2.participants, len(activity2.participants), activity2.group.participants, len(activity2.group.participants)
 
             # update table.
             table[coordinates[a][1]][coordinates[a][0]][coordinates[a][2]] = activity1 

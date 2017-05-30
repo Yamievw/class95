@@ -50,6 +50,7 @@ def random_table():
                 else:
                     activity.update_participants(groups[i].get_participants())
                     activity.update_group(groups[i])
+                    # print "ben name", groups[i].name
                 activities.append(activity)
                     
 
@@ -89,5 +90,5 @@ def random_table():
     return test
 
 # OM TE TESTENN!
-# oef = random_table()
-# print oef
+oef = random_table()
+print oef
