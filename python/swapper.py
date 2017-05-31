@@ -1,7 +1,7 @@
 import copy # for schedule class.
 import random # for the random selection.
 from roadmap import roadmap
-from read_data3 import *
+from read_data import *
 
 
 def swap_activity(schedule):
