@@ -24,7 +24,7 @@ def visualize(table, room=False):
                 tmp.append(slots[timeslot])
             else:
                 for activity in table[timeslot][day-1]:
-                    if activity.ttype == "lectures":
+                    if activity.ttype == "lecturess":
                         tmp_str += activity.name + " (" + activity.ttype + " " +  " in " + activity.room.name + ") "
                     else:
                         tmp_str += activity.name + " (" + activity.ttype + " " + str(activity.group_id) + " in " + activity.room.name + ") "

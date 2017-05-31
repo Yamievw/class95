@@ -184,13 +184,10 @@ def check_bonus(timetable):
 
             if no_units == 2 and (current == two_units1 or current == two_units2 or current == two_units3):
                 bonus += 20./no_groups
-                print key, test_id
             elif no_units == 3 and current == three_units:
                 bonus += 20./no_groups
-                print key, test_id
             elif no_units == 4 and current == four_units:
                 bonus += 20./no_groups
-                print key, test_id
     return bonus
                 
                 

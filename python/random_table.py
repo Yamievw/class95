@@ -42,10 +42,13 @@ def random_table():
                 ttype = key
                 # print "ben ttype", ttype
                 capacity = components[key][1]
-                # participants = groups[i]           
+                # participants = groups[i]
+
+                if key == "lectures":
+                    group_id = 0
+                
                 activity = Activity(name, ttype, capacity, group_id)
                 if key == "lectures":
-                    group_id = 0 
                     activity.update_participants(registrants)
                 else:
                     activity.update_participants(groups[i].get_participants())
