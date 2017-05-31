@@ -1,4 +1,4 @@
-from random_table2 import *
+from random_table import *
 from swapper import *
 import matplotlib.pyplot as plt
 import seaborn as sns
