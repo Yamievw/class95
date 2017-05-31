@@ -20,8 +20,8 @@ print "1..."
 print "Prepare for some awesome hill climbing!!!"
 print " "
 
-N = 1
-iterations = 10000
+N = 7
+iterations = 100000
 tail = 500
 
 path = os.getcwd()
@@ -42,7 +42,7 @@ for n in range(N):
     # set up schedule and figure
     schedule = random_table()
     scores_list.append(schedule.score())
-    plt.figure(n)
+    plt.figure()
 
     print "n = ", n + 1, "/", N, "performing", iterations, "iterations"
     
@@ -156,5 +156,6 @@ for n in range(N):
     plt.plot(bonus, label="bonus")
     plt.legend()
     plt.savefig(filename + " score distribution")
+    plt.clf()
     print " "
 
