@@ -9,8 +9,8 @@ from rate_timetable import *
 
 ttype = "HC"
 date = "2017-05-31"
-time = "12 07 08"
-filename = "0 score=955"
+time = "15 35 45"
+filename = "0 score=1131"
 
 dirname = os.getcwd()
 dirname += "\\Runs\\"
