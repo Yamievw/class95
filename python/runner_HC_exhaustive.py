@@ -20,8 +20,8 @@ print "1..."
 print "Prepare for some awesome hill climbing!!!"
 print " "
 
-N = 2
-iterations = 50000
+N = 1
+iterations = 10000
 tail = 500
 
 path = os.getcwd()
