@@ -60,7 +60,9 @@ test = Schedule()
 ##print best.score()
 ##plt.hist(thing, bins=np.arange(min(thing), max(thing) + 10, 10))
 ##plt.show()
-##    
+
+
+
 
 
 #Test new day check
@@ -78,21 +80,21 @@ test = Schedule()
 ##score = check_evening(test)
 ##print score
 ##print test1
-
-scores = []
-for i in range(10000):
-    table = random_table()
-    score = table.score()
-    scores.append(score)
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-plt.hist(scores,  bins=np.arange(min(scores), max(scores) + 10, 10))
-plt.xlabel("Score")
-plt.ylabel("Frequency")
-plt.title("Distribution of intial scores")
-plt.show()
-    
+##
+##scores = []
+##for i in range(10000):
+##    table = random_table()
+##    score = table.score()
+##    scores.append(score)
+##
+##import matplotlib.pyplot as plt
+##import seaborn as sns
+##plt.hist(scores,  bins=np.arange(min(scores), max(scores) + 10, 10))
+##plt.xlabel("Score")
+##plt.ylabel("Frequency")
+##plt.title("Distribution of intial scores")
+##plt.show()
+##    
     
 
 

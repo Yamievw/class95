@@ -57,6 +57,8 @@ def swap_student(schedule, no_swaps=1):
         n = random.randint(0, len(activities)-1)
         coordinates = schedule_roadmap[activities[n]]
 
+        
+
         no_activities = len(coordinates)
         
         if no_activities <= 1:
@@ -76,6 +78,8 @@ def swap_student(schedule, no_swaps=1):
         participants1 = activity1.group.participants
         participants2 = activity2.group.participants
 
+        
+
         # TO TEST
         # print "ben 1", len(participants1)
         # print activity1.group.get_name()
@@ -92,8 +96,6 @@ def swap_student(schedule, no_swaps=1):
 
         swap_student = participants1[random.randint(0, len(participants1) - 1)]
         # print "ben swap", swap_student
-
-        
         
         if swap_student not in participants2:
             # succesfull swap, yay!

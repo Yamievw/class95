@@ -2,10 +2,15 @@ import pickle
 import os
 from rate_timetable import *
 
+##ttype = "HC"
+##date = "2017-05-29"
+##time = "17 27 10"
+##filename = "1 score=1232"
+
 ttype = "HC"
-date = "2017-05-23"
-time = "00 16 37"
-filename = "0 score=1270"
+date = "2017-05-31"
+time = "12 07 08"
+filename = "0 score=955"
 
 dirname = os.getcwd()
 dirname += "\\Runs\\"
@@ -22,9 +27,8 @@ file_pi2 = open(dirname, 'r')
 schedule = pickle.load(file_pi2)
 table = schedule.timetable
 
-print check_day(table)
-print check_conflict(table)
-print check_room(table)
-print check_bonus(table)
-#schedule.plot()
-schedule.plot_course("Kansrekenen 2")
+print "block ", check_day(table)
+print "conflict ", check_conflict(table)
+print "room ", check_room(table)
+print "bonus ", check_bonus(table)
+schedule.plot()

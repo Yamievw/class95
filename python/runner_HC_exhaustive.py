@@ -7,6 +7,8 @@ import seaborn as sns
 import os
 import progressbar as pb
 
+from rate_timetable import *
+
 from hill_climber import *
 from random_table import random_table
 
@@ -19,7 +21,7 @@ print "Prepare for some awesome hill climbing!!!"
 print " "
 
 N = 2
-iterations = 100000
+iterations = 50000
 tail = 500
 
 path = os.getcwd()
@@ -54,9 +56,14 @@ for n in range(N):
 
 
     i = 0
-    plt.figure()
     iterations_list = []
     scores_list = []
+
+    malus_block = []
+    malus_conflict = []
+    malus_room = []
+    bonus = []
+    
     for j in range(1, iterations + 1):     
         timer.update(j)
         
@@ -69,6 +76,13 @@ for n in range(N):
 
         iterations_list.append(j)
         scores_list.append(schedule.score())
+
+        tmp = schedule.timetable
+        malus_block.append(check_day(tmp))
+        malus_conflict.append(check_conflict(tmp))
+        malus_room.append(check_room(tmp))
+        bonus.append(check_bonus(tmp))
+        
         if len(scores_list) > tail:
             if (scores_list[-tail] == scores_list[-1]):
                 if i%3 == 0:
@@ -91,6 +105,24 @@ for n in range(N):
                 i += 1
                 iterations_list = []
                 scores_list = []
+
+
+    if i%3 == 0:
+        if i < 3:
+            plt.plot(iterations_list, scores_list, label="Activities", color="b")
+        else:
+            plt.plot(iterations_list, scores_list, color="b")                   
+            
+    elif (i-1)%3 == 0:
+        if i < 3:
+            plt.plot(iterations_list, scores_list, label="Students", color="g")
+        else:
+            plt.plot(iterations_list, scores_list, color="g")
+    else:
+        if i < 3:
+            plt.plot(iterations_list, scores_list, label="Rooms", color="r")
+        else:
+            plt.plot(iterations_list, scores_list, color="r")   
             
         
         
@@ -99,7 +131,8 @@ for n in range(N):
     plt.ylabel("Score")
     plt.title("Hill Climber")
 
-
+    
+    
     filename = path + str(n) + " score="
     score_string = str(schedule.score()).split(".")[0]
     filename += score_string
@@ -112,7 +145,16 @@ for n in range(N):
     filehandler = open(filename, 'w') 
     pickle.dump(schedule, filehandler)
 
+
     
     timer.finish()
+    plt.clf()
+    plt.figure()
+    plt.plot(malus_block, label="block")
+    plt.plot(malus_conflict, label="conflict")
+    plt.plot(malus_room, label="room")
+    plt.plot(bonus, label="bonus")
+    plt.legend()
+    plt.savefig(filename + " score distribution")
     print " "
 

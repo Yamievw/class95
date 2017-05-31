@@ -151,6 +151,7 @@ def check_bonus(timetable):
 
     two_units1 = [0, 3]
     two_units2 = [1, 4]
+    two_units3 = [0, 4]
     three_units = [0, 2, 4]
     four_units = [0, 1, 3, 4]
 
@@ -181,12 +182,15 @@ def check_bonus(timetable):
                 if group_id == 0 or group_id == test_id:
                     current.append(day)
 
-            if no_units == 2 and (current == two_units1 or current == two_units2):
+            if no_units == 2 and (current == two_units1 or current == two_units2 or current == two_units3):
                 bonus += 20./no_groups
+                print key, test_id
             elif no_units == 3 and current == three_units:
                 bonus += 20./no_groups
+                print key, test_id
             elif no_units == 4 and current == four_units:
                 bonus += 20./no_groups
+                print key, test_id
     return bonus
                 
                 
