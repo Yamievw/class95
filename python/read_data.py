@@ -5,7 +5,7 @@
 import csv
 import math # for ceil.
 
-class Courses():
+class Course():
     def __init__(self, name, components, registrants):
         self.name = name
         # a dictionary with keys "lectures", "tutorials" or "labs" and the
@@ -55,9 +55,10 @@ class Courses():
         # math.ceil to ensure enough activities
         self.components["tutorials"] = (int(math.ceil(tutorial_result)), tutorials_capacity)
         self.components["labs"] = (int(math.ceil(labs_result)), labs_capacity)
-        
 
+        # determine the number of groups. 
         self.no_groups = max(self.components["tutorials"][0], self.components["labs"][0])
+
 
 class Student():
     def __init__(self, name, surname, number, courses):
@@ -66,9 +67,9 @@ class Student():
         self.number = number
         self.courses = []
         
-        
         for course in courses:
             if course != '':
+                # because there's a comma in the CSV.
                 if course == 'Zoeken':
                     self.courses.append('Zoeken, sturen en bewegen')
                 elif course != ' sturen en bewegen':
@@ -80,12 +81,7 @@ class Student():
         return self.courses
     def get_coursenumber(self):
         return self.coursenumber
-    
-    
-       
-    
-    
-    
+
     
 class Room():
     def __init__(self, name, capacity):
@@ -97,18 +93,10 @@ class Room():
     def get_capacity(self):
         return self.capacity
 
-
-    
+# dictionaries that can be used by every other module in this project.  
 students = {}
 courses = {}
 rooms = {}
-
-
-
-###
-### Fiks lowercase vaknamen enzo. 
-###
-
 
 
 # read in rooms
@@ -144,7 +132,7 @@ with open('vakken.CSV', 'rb') as csvfile:
         components["labs"] = (int(row[4]), labs_capacity)
         
         # create course object. 
-        courses[row[0]] = Courses(row[0], components, [])
+        courses[row[0]] = Course(row[0], components, [])
      
     
     
@@ -166,5 +154,4 @@ with open('studenten_roostering.CSV', 'rb') as csvfile:
 for key in courses:
     courses[key].update_components()
 
-# to test the components update.
-#print courses["Collectieve Intelligentie"].get_components()
+

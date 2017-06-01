@@ -2,8 +2,10 @@
 
 import matplotlib.pyplot as plt
 import math
+
+# define Tmin/Tn to avoid overflow errors. 
 Tn = .1
-Tmin = 0.1
+Tmin = Tn
 def cool(scheme, T0, Tn, N, time):
     """ general cooling function called by other modules """
     T = 0
@@ -30,8 +32,7 @@ def cool(scheme, T0, Tn, N, time):
     # minimum temperature to avoid overflow error. 
     elif T < Tmin:
         return Tmin
-    
-    
+
     
 def cool_linear(T0, time):
     """ a linear cooling scheme; Linear multiplicative cooling """
@@ -53,6 +54,7 @@ def cool_exponentialN(T0, Tn, N, time):
     return Tn + (T0 + Tn)/(factor)
 
 def cool_logarithm(T0, time):
+    # modeled after http://what-when-how.com/artificial-intelligence/a-comparison-of-cooling-schedules-for-simulated-annealing-artificial-intelligence/
     return T0/(1 + math.log(1 + time))
 def cool_logarithmic(T0, time):
     """ a logarithmic cooling scheme;  Logarithmical multiplicative cooling"""
@@ -60,7 +62,7 @@ def cool_logarithmic(T0, time):
     return T0/(1. + alpha*math.log(1. + time))
 
 
-##    
+# test code.   
 ##t = []
 ##T = []
 ##T0 = 10

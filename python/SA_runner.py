@@ -1,4 +1,4 @@
-# runs hillclimber
+# runs Simulated Annealing. 
 import pickle
 import random
 from datetime import datetime
@@ -20,6 +20,7 @@ print ""
 print "Prepare for some awesome annealing!!!"
 print " "
 
+# define run parameters. 
 N = 3
 iterations = 100000
 subdivision = 1000
@@ -28,8 +29,7 @@ cooling_schedule = "log"
 T0 = 20
 T = T0
 
-
-
+# set write path. 
 path = os.getcwd()
 path += "\\Runs\\SA\\"
 path += str(datetime.now().date())
@@ -54,16 +54,12 @@ for n in range(N):
     #initialize timer
     timer = pb.ProgressBar(widgets=widgets, maxval=iterations).start()
 
-
-    
-    
     for j in range(iterations/subdivision):
-        
         begin = j*subdivision 
         end = (j+1)*subdivision
 
         
-
+        # do each type of swap sequentially. Plot after a type finishes. 
         if j%3==0:
             iterations_list = []
             scores_list = []
@@ -77,6 +73,7 @@ for n in range(N):
                 scores_list.append(schedule.score())
                 temperatures_list.append(T)
 
+            # plot after completion. 
             plt.subplot(211)
             if begin < (subdivision*3):
                 plt.plot(iterations_list, scores_list, label="Activities", color="b")
@@ -144,7 +141,7 @@ for n in range(N):
             plt.subplot(212)
             plt.plot(iterations_list, temperatures_list, color="r")
             
-    
+    # set up final plot, save figure and schedule object. 
     plt.tight_layout()
     filename = path + str(n) + " score="
     score_string = str(schedule.score()).split(".")[0]

@@ -6,9 +6,9 @@ from read_data import *
 from roadmap import *
 
 def make_checklist(courses=courses):
-    # creates a dictionary that keeps track of necessary timeslots per
-    # course. e.g. {"Compilerbouw" : 5}. Standard input is our previous
-    # "courses" list, but simpler examples may be used for testing
+    """ creates a dictionary that keeps track of necessary timeslots per
+        course. e.g. {"Compilerbouw" : 5}. Standard input is our previous
+        "courses" list, but simpler examples may be used for testing """
     
     course_checklist = {}
     
@@ -19,14 +19,11 @@ def make_checklist(courses=courses):
         
 
     return course_checklist
+
     
-
-
-
-
 def rate_timetable(timetable):
-    # scores the timetable. First checks if the schedule is
-    # valid, then adds/subtracts bonus/malus points.
+    """ scores the timetable. First checks if the schedule is
+        valid, then adds/subtracts bonus/malus points. """
     checklist = make_checklist() #create course checklist
     score = 1000
     
@@ -84,18 +81,13 @@ def check_day(timetable):
             if counters[0] > 1:
                 score_day -= (10*(counters[0] - 1))
             no_groups = courses[key].no_groups
-##            if counters[0] > 1:
-##                print key, "lectures", counters, score_day
+            
             for group_id in range(1, len(counters)):
                 if counters[0] > 0 and counters[group_id] > 0:
                     score_day -= (10./no_groups*counters[group_id])
-##                    print key, "combination", counters, score_day
                 elif counters[0] == 0 and counters[group_id] > 1:
                     score_day -= (10./no_groups*(counters[group_id] - 1))
-##                    print key, "just groups", counters, score_day
-        
-
-    
+                    
     return score_day
 
 def check_conflict(timetable):
@@ -137,6 +129,7 @@ def check_room(timetable):
     return -score_sum
 
 def check_evening(timetable):
+    """ checks the evening timeslots """
     score_evening = 0
     for day in range(5):
         for activity in timetable[4][day]:
@@ -144,11 +137,14 @@ def check_evening(timetable):
     return score_evening
 
 def check_bonus(timetable):
-    
+    """ checks the bonus points. """
+
+    # get a roadmap to efficiently loop through timetable. 
     mapp = roadmap_course(timetable)
 
     bonus = 0
 
+    # set up good configurations. 
     two_units1 = [0, 3]
     two_units2 = [1, 4]
     two_units3 = [0, 4]
@@ -167,7 +163,8 @@ def check_bonus(timetable):
         # we only look at 2 to 4 activities per student. 
         if no_units < 2 or no_units > 4:
             continue
-            
+
+        # check for each group. 
         for test_id in range(1, no_groups + 1):
 
             # fill this list with the configuration of this subject and group. 
@@ -178,10 +175,12 @@ def check_bonus(timetable):
                 group_id = int(activity.group_id)
 
                 day = coor[0]
-                                
+
+                # letures always count.             
                 if group_id == 0 or group_id == test_id:
                     current.append(day)
-
+            # check for proper configuration. Divide bonus points by the number
+            # of groups. 
             if no_units == 2 and (current == two_units1 or current == two_units2 or current == two_units3):
                 bonus += 20./no_groups
             elif no_units == 3 and current == three_units:
@@ -192,6 +191,7 @@ def check_bonus(timetable):
                 
                 
 def get_activity(coor, table):
+    """ retrieves activity from table """
     return table[coor[1]][coor[0]][coor[2]]       
             
             

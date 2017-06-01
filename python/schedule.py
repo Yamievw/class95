@@ -1,13 +1,14 @@
-# creates a datastructure for the schedule
+# creates a datastructure for the schedule, activities and groups. 
 import numpy as np
 
 from read_data import *
 from rate_timetable import *
 from visualize import *
 
+
 class Activity():
-    # a two hour timeslot with a name, participants and a
-    # specific room.
+    """ An object that can be placed in the timetable. It has participants
+        a room and a type and possibly a group. """
     
     def __init__(self, name, ttype, capacity,  group_id=None, group=None, room=None, participants=[]):
         self.name = name
@@ -52,44 +53,44 @@ class Activity():
         self.room = room
 
     def add_participants(self, participants):
-        self.participants.append(participants) # sanity check iemand twee keer. 
+        self.participants.append(participants) 
 
     def __str__(self):
         return str(self.name) + " " + str(self.ttype) + " " + str(self.group_id)
 
+
 class Group():
+    """ A group of people that follow the same activities.
+        groups are the same for labs and tutorials. """
     def __init__(self, name, participants):
         self.name = name
         self.participants = participants
-        # self.group_id = group_id
 
     def get_name(self):
         return self.name
-    # def get_group(self, group_id):
-    #     return self.group_id
     def get_participants(self):
         return self.participants
     def update_participants(self, participants):
         self.participants = participants
 
-# group = {}
-
 
 class Schedule():
-    # a 5x5 matrix that represents the available timeslots
-    # and can calculate its own fitness.
+    """ a 5x5 matrix that represents the available timeslots
+        and can calculate its own fitness. """
 
-    
-    
     def __init__(self):
         self.timetable = [[[] for x in range(5)] for y in range(5)]
+
+        # dicts for str representation. 
         self.day_dict = {0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday"}
         self.timeslot_dict = {0:"9:00-11:00", 1:"11:00-13:00", 2:"13:00-15:00", 3:"15:00-17:00", 4:"17:00-19:00"}
         
-
     def get_timetable(self):
+        """ returns 5x5 timetable. """
         return self.timetable
+    
     def update_activity(self, day, timeslot, name, replacement):
+        """ update an activity """
         i = 0
         for activity in self.timetable[timeslot][day]:          
             if activity.name + "_" + activity.type + "_" + activity.group_id == name:
@@ -97,14 +98,18 @@ class Schedule():
                 return 1 # if successful
             i += i
         return 0 # if unsuccessful
+    
     def update_timetable(self, new_timetable):
-        self.timetable = new_timetable # sanity check hiero moet noggg! #check of het een 5 bij 5 matrix is!!
+        """ accept new matrix timetable """
+        self.timetable = new_timetable 
         return self
 
     def plot(self):
+        """ displays an html table of the current schedule. """
         visualize(self.timetable)
 
     def personal(self, student, visual=False):
+        """ returns a personal schedule in html table and the corresponding matrix. """
         personal_table = [[[] for x in range(5)] for y in range(5)]
 
         for day in range(5):
@@ -118,6 +123,7 @@ class Schedule():
         return personal_table
 
     def plot_course(self, course_name):
+        """ displays an html table for a specific course. """
         course_table = [[[] for x in range(5)] for y in range(5)]
 
         for day in range(5):
@@ -148,7 +154,7 @@ class Schedule():
         self.timetable[timeslot][day].append(activity)
     
     def score(self):
-        # get timetable's score. 
+        """ get timetable's score. """
         return rate_timetable(self.timetable)
 
     def __str__(self):
@@ -163,4 +169,4 @@ class Schedule():
                         print activity.name + " " + activity.ttype + " " + group + " " + room
                     else:
                         print activity.name + " " + activity.ttype + " Group " + group + " " + room
-        return "--"
+        return ""

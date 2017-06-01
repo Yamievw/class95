@@ -1,11 +1,12 @@
+# visualization of a given schedule
+
 from prettytable import PrettyTable
 import os
 import webbrowser
 
-
-
-
 def visualize(table, room=False):
+    """ Visualizes a given table in the form of an HTML table """
+    
     try:
         table = table.timetable
     except:
@@ -40,7 +41,7 @@ def visualize(table, room=False):
 
 
 
-
+    # CSS style sheet. 
     html = """ <!DOCTYPE html> <html> <head> <style>
     #customers tr:nth-child(even){background-color: #f2f2f2;}
     #customers {
@@ -69,6 +70,8 @@ def visualize(table, room=False):
         color: white;
     }
     </style></head><body> """
+
+    # Save html file and open in standard browser. 
     html += output.get_html_string(attributes={"id":"customers", "class":"table table-hover"})
     path = os.path.abspath('temp.html')
     url = 'file://' + path

@@ -1,8 +1,8 @@
-# from random_table2 import *
+# Makes a roadmap, so activities can be efficiently found in the schedule object. 
 
-
-# roadmap for different types of activities for all courses. 
 def roadmap(schedule, lectures_bool=True):
+    """ roadmap for different types of activities for all courses. """
+
     # allow for two types of input. 
     try:
         timetable = schedule.get_timetable()
@@ -31,8 +31,8 @@ def roadmap(schedule, lectures_bool=True):
     return roadmap
 
 
-# roadmap for all activities (labs, tutorials, lectures) for all courses.
 def roadmap_course(schedule):
+    """  roadmap for all activities (labs, tutorials, lectures) for all courses. """
     # allow for two types of input. 
     try:
         timetable = schedule.get_timetable()
@@ -54,7 +54,7 @@ def roadmap_course(schedule):
                 i += 1
     return roadmap
 
-
-# schedule = random_table()
-# mapp = roadmap(schedule)
-# print mapp["Advanced Heuristics_labs"]
+# test code. 
+## schedule = random_table()
+## mapp = roadmap(schedule)
+## print mapp["Advanced Heuristics_labs"]
