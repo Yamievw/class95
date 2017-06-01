@@ -17,6 +17,8 @@ def cool(scheme, T0, Tn, N, time):
         T = cool_exponential(T0, time)
     elif scheme == "log":
         T = cool_logarithm(T0, time)
+    elif scheme == "log_mult":
+        T = cool_logarithmic(T0, time)
 
     ### more schemes
 
@@ -32,27 +34,30 @@ def cool(scheme, T0, Tn, N, time):
     
     
 def cool_linear(T0, time):
-    """ a linear cooling scheme """
+    """ a linear cooling scheme; Linear multiplicative cooling """
     alpha = .5
     return T0/(1. + alpha*time)
 def cool_linearN(T0, Tn, N, time):
-    """ a linear cooling scheme with end T"""
+    """ a linear cooling scheme with end T; Linear additive cooling"""
     # modeled after http://what-when-how.com/artificial-intelligence/a-comparison-of-cooling-schedules-for-simulated-annealing-artificial-intelligence/
     return Tn + (T0 - Tn)*(N - time)/float(N)
-
     
 def cool_exponential(T0, time):
-    """ an exponential cooling scheme """
+    """ an exponential cooling scheme; Exponential multiplicative cooling """
     alpha = .8
     return T0*alpha**time
 def cool_exponentialN(T0, Tn, N, time):
-    """ an exponential cooling scheme with end T """
+    """ an exponential cooling scheme with end T; Exponential additive cooling  """
     # modeled after http://what-when-how.com/artificial-intelligence/a-comparison-of-cooling-schedules-for-simulated-annealing-artificial-intelligence/
     factor = 1+ math.exp(2*math.log(T0 - Tn)*(time-.5*N)/N)
     return Tn + (T0 + Tn)/(factor)
 
 def cool_logarithm(T0, time):
     return T0/(1 + math.log(1 + time))
+def cool_logarithmic(T0, time):
+    """ a logarithmic cooling scheme;  Logarithmical multiplicative cooling"""
+    alpha = 1.5
+    return T0/(1. + alpha*math.log(1. + time))
 
 
 ##    
