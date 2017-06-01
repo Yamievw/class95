@@ -15,6 +15,8 @@ def cool(scheme, T0, Tn, N, time):
         T = cool_exponentialN(T0, Tn, N, time)
     elif scheme == "exp":
         T = cool_exponential(T0, time)
+    elif scheme == "log":
+        T = cool_logarithm(T0, time)
 
     ### more schemes
 
@@ -49,14 +51,17 @@ def cool_exponentialN(T0, Tn, N, time):
     factor = 1+ math.exp(2*math.log(T0 - Tn)*(time-.5*N)/N)
     return Tn + (T0 + Tn)/(factor)
 
+def cool_logarithm(T0, time):
+    return T0/(1 + math.log(1 + time))
 
-    
+
+##    
 ##t = []
 ##T = []
-##T0 = 300
-##for time in range(1000):
+##T0 = 10
+##for time in range(20000):
 ##    t.append(time)
-##    T.append(cool("lin", T0, time))
+##    T.append(cool("log", T0, 3, 3, time))
 ##
 ##plt.plot(t, T)
 ##plt.show()

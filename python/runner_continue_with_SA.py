@@ -26,9 +26,9 @@ print "Prepare for some awesome annealing!!!"
 print " "
 
 ttype = "HC"
-date = "2017-05-31"
-time = "15 45 36"
-filename = "1 score=1294"
+date = "2017-06-01"
+time = "01 01 33"
+filename = "4 score=1299"
 
 dirname = os.getcwd()
 dirname += "\\Runs\\"
@@ -44,11 +44,11 @@ dirname += filename
 file_pi2 = open(dirname, 'r') 
 schedule = pickle.load(file_pi2)
 
-iterations = 100000
+iterations = 4000
 subdivision = 1000
 
-cooling_schedule = "expN"
-T0 = 2.
+cooling_schedule = "log"
+T0 = 3.
 T = T0
 
 
