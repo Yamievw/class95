@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-from hill_climber import *
+from HC_hill_climber import *
 from random_table import random_table
 
 print "Beep beeep starting enginesssss!"

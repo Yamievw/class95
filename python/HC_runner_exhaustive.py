@@ -7,7 +7,7 @@ import seaborn as sns
 import progressbar as pb
 import os
 
-from hill_climber import *
+from HC_hill_climber import *
 from random_table import *
 
 print "Beep beeep starting enginesssss!"
