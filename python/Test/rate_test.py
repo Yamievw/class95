@@ -1,6 +1,6 @@
 from read_data import *
 from schedule import *
-from random_table2 import *
+from random_table import *
 import random
 
 courses_test = courses.values()

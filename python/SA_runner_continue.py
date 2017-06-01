@@ -42,8 +42,8 @@ file_pi2 = open(dirname, 'r')
 schedule = pickle.load(file_pi2)
 
 # define run parameters. 
-iterations = 100000
-subdivision = 1000
+iterations = 100
+subdivision = 10
 
 cooling_schedule = "log"
 T0 = 3.

@@ -1,7 +1,7 @@
-from simulated_annealing import *
+from SA_simulated_annealing import *
 from random_table import *
 
-from cooling import cool # for testing.
+from SA_cooling import cool # for testing.
 
 import matplotlib.pyplot as plt
 import seaborn as sns

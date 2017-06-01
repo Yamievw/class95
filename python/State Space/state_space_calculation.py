@@ -1,7 +1,7 @@
 import math
 
-from read_data import *
-from random_table import *
+from .read_data import *
+from .random_table import *
 
 def stirling(n, k):
     output = 0

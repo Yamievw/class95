@@ -1,4 +1,4 @@
-from hill_climber import *
+from HC_hill_climber import *
 from random_table import *
 
 import matplotlib.pyplot as plt
