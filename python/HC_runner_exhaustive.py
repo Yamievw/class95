@@ -4,13 +4,11 @@ import random
 from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 import progressbar as pb
-
-from rate_timetable import *
+import os
 
 from hill_climber import *
-from random_table import random_table
+from random_table import *
 
 print "Beep beeep starting enginesssss!"
 print " "

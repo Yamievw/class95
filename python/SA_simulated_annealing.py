@@ -1,6 +1,6 @@
 ### implements a simulated annealing algorithm
 
-from cooling import *
+from SA_cooling import *
 from roadmap import roadmap
 from swapper import *
 

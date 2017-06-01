@@ -5,7 +5,6 @@
 import csv
 import math # for ceil.
 
-
 class Courses():
     def __init__(self, name, components, registrants):
         self.name = name

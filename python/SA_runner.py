@@ -7,9 +7,9 @@ import seaborn as sns
 import os
 import progressbar as pb
 
-from simulated_annealing import *
+from SA_simulated_annealing import *
 from random_table import random_table
-from cooling import cool
+from SA_cooling import cool
 
 print "Beep beeep starting up beep beep"
 print " "
