@@ -20,12 +20,12 @@ print ""
 print "Prepare for some awesome annealing!!!"
 print " "
 
-N = 10
-iterations = 10000
+N = 3
+iterations = 100000
 subdivision = 1000
 
-cooling_schedule = "expN"
-T0 = 50
+cooling_schedule = "log"
+T0 = 20
 T = T0
 
 

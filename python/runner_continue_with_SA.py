@@ -28,7 +28,7 @@ print " "
 ttype = "HC"
 date = "2017-06-01"
 time = "01 01 33"
-filename = "4 score=1299"
+filename = "0 score=1274"
 
 dirname = os.getcwd()
 dirname += "\\Runs\\"
@@ -44,7 +44,7 @@ dirname += filename
 file_pi2 = open(dirname, 'r') 
 schedule = pickle.load(file_pi2)
 
-iterations = 4000
+iterations = 100000
 subdivision = 1000
 
 cooling_schedule = "log"
